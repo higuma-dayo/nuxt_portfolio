@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mainVisual">
+    <!-- <div class="mainVisual">
       <picture>
         <source
           :width="settings.mainVisualSp.width"
@@ -15,72 +15,79 @@
           alt=""
         />
       </picture>
-    </div>
+    </div> -->
 
-    <section id="about" class="sectionPrimary">
-      <div class="container">
-        <h2 class="headingPrimary">about</h2>
-        <div class="profile">
-          <div class="profile__upper">
-            <div class="profile__text">
-              <p class="profile__name">
-                <span>{{ settings.name }}</span>
-                <span lang="en">{{ settings.nameEnglish }}</span>
-              </p>
-              <dl class="profile__item">
-                <dt class="profile__title">技術スタック</dt>
-                <dd>{{ settings.skills }}</dd>
-              </dl>
-              <dl class="profile__item">
-                <dt class="profile__title">趣味</dt>
-                <dd>{{ settings.hobby }}</dd>
-              </dl>
-            </div>
-            <figure class="profile__image">
-              <img
-                :width="settings.profileImage.width"
-                :height="settings.profileImage.height"
-                :src="settings.profileImage.url"
-                :alt="settings.name"
-              />
-            </figure>
-          </div>
-          <p class="profile__message">{{ settings.message }}</p>
-        </div>
-      </div>
-    </section>
+    <WebGL></WebGL>
 
-    <section class="sectionPrimary background--gray">
-      <div class="container">
-        <h2 class="headingPrimary">works</h2>
-        <ol class="row works">
-          <li v-for="work in works.contents" :key="work.id" class="works__item">
-            <nuxt-link :to="`/works/${work.id}/`" class="works__inner">
-              <figure class="works__image">
+    <ScrollView>
+      <section id="about" class="sectionPrimary">
+        <div class="container">
+          <h2 class="headingPrimary">about</h2>
+          <div class="profile">
+            <div class="profile__upper">
+              <div class="profile__text">
+                <p class="profile__name">
+                  <span>{{ settings.name }}</span>
+                  <span lang="en">{{ settings.nameEnglish }}</span>
+                </p>
+                <dl class="profile__item">
+                  <dt class="profile__title">技術スタック</dt>
+                  <dd>{{ settings.skills }}</dd>
+                </dl>
+                <dl class="profile__item">
+                  <dt class="profile__title">趣味</dt>
+                  <dd>{{ settings.hobby }}</dd>
+                </dl>
+              </div>
+              <figure class="profile__image">
                 <img
-                  :width="work.thumbnail.width"
-                  :height="work.thumbnail.height"
-                  :src="work.thumbnail.url"
-                  :alt="work.title"
+                  :width="settings.profileImage.width"
+                  :height="settings.profileImage.height"
+                  :src="settings.profileImage.url"
+                  :alt="settings.name"
                 />
               </figure>
-              <div class="works__text">
-                <p class="works__name">{{ work.title }}</p>
-                <p class="works__date">
-                  <time
-                    :datetime="work.release"
-                    v-text="$dateFns.format(new Date(work.release), 'yyyy.MM.dd')"
+            </div>
+            <p class="profile__message">{{ settings.message }}</p>
+            <particle class="back-canvas" ref="canvas" :cameraController="$refs.cameraController" ></particle>
+          </div>
+        </div>
+      </section>
+    </ScrollView>
+
+    <ScrollView>
+      <section class="sectionPrimary background--gray">
+        <div class="container">
+          <h2 class="headingPrimary">works</h2>
+          <ol class="row works">
+            <li v-for="work in works.contents" :key="work.id" class="works__item">
+              <nuxt-link :to="`/works/${work.id}/`" class="works__inner">
+                <figure class="works__image">
+                  <img
+                    :width="work.thumbnail.width"
+                    :height="work.thumbnail.height"
+                    :src="work.thumbnail.url"
+                    :alt="work.title"
                   />
-                </p>
-              </div>
-            </nuxt-link>
-          </li>
-        </ol>
-        <p class="button-area">
-          <nuxt-link to="/works" class="buttonPrimary">view more</nuxt-link>
-        </p>
-      </div>
-    </section>
+                </figure>
+                <div class="works__text">
+                  <p class="works__name">{{ work.title }}</p>
+                  <p class="works__date">
+                    <time
+                      :datetime="work.release"
+                      v-text="$dateFns.format(new Date(work.release), 'yyyy.MM.dd')"
+                    />
+                  </p>
+                </div>
+              </nuxt-link>
+            </li>
+          </ol>
+          <p class="button-area">
+            <nuxt-link to="/works" class="buttonPrimary">view more</nuxt-link>
+          </p>
+        </div>
+      </section>
+    </ScrollView>
   </div>
 </template>
 

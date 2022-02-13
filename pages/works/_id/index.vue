@@ -30,58 +30,60 @@
       </div>
     </div>
 
-    <div class="container">
-      <dl class="worksItem">
-        <dt class="worksItem__title">URL</dt>
-        <dd class="worksItem__contents">
-          <a :href="work.url" target="_blank">{{ work.url }}</a>
-        </dd>
-      </dl>
-      <dl v-if="work.position" class="worksItem">
-        <dt class="worksItem__title">ポジション</dt>
-        <dd class="worksItem__contents">{{ work.position }}</dd>
-      </dl>
-      <dl v-if="work.responsibility" class="worksItem">
-        <dt class="worksItem__title">担当</dt>
-        <dd class="worksItem__contents">
-          <span
-            v-for="(res, resIndex) in work.responsibility"
-            :key="resIndex"
-            v-text="res"
-          />
-        </dd>
-      </dl>
-      <dl class="worksItem">
-        <dt class="worksItem__title">技術</dt>
-        <dd class="worksItem__contents">
-          <span
-            v-for="(skill, skillIndex) in work.skill"
-            :key="skillIndex"
-            v-text="skill"
-          />
-        </dd>
-      </dl>
-      <dl v-if="work.tools" class="worksItem">
-        <dt class="worksItem__title">ツール</dt>
-        <dd class="worksItem__contents">
-          <span
-            v-for="(tool, toolIndex) in work.tools"
-            :key="toolIndex"
-            v-text="tool"
-          />
-        </dd>
-      </dl>
-      <dl class="worksItem">
-        <dt class="worksItem__title">一言</dt>
-        <dd class="worksItem__contents">{{ work.comment }}</dd>
-      </dl>
-    </div>
+    <ScrollView>
+        <div class="container">
+        <dl class="worksItem">
+            <dt class="worksItem__title">URL</dt>
+            <dd class="worksItem__contents">
+            <a :href="work.url" target="_blank">{{ work.url }}</a>
+            </dd>
+        </dl>
+        <dl v-if="work.position" class="worksItem">
+            <dt class="worksItem__title">ポジション</dt>
+            <dd class="worksItem__contents">{{ work.position }}</dd>
+        </dl>
+        <dl v-if="work.responsibility" class="worksItem">
+            <dt class="worksItem__title">担当</dt>
+            <dd class="worksItem__contents">
+            <span
+                v-for="(res, resIndex) in work.responsibility"
+                :key="resIndex"
+                v-text="res"
+            />
+            </dd>
+        </dl>
+        <dl class="worksItem">
+            <dt class="worksItem__title">技術</dt>
+            <dd class="worksItem__contents">
+            <span
+                v-for="(skill, skillIndex) in work.skill"
+                :key="skillIndex"
+                v-text="skill"
+            />
+            </dd>
+        </dl>
+        <dl v-if="work.tools" class="worksItem">
+            <dt class="worksItem__title">ツール</dt>
+            <dd class="worksItem__contents">
+            <span
+                v-for="(tool, toolIndex) in work.tools"
+                :key="toolIndex"
+                v-text="tool"
+            />
+            </dd>
+        </dl>
+        <dl class="worksItem">
+            <dt class="worksItem__title">一言</dt>
+            <dd class="worksItem__contents">{{ work.comment }}</dd>
+        </dl>
+        </div>
 
-    <p class="button-area">
-      <nuxt-link to="/works" class="buttonPrimary buttonPrimary--leftArrow"
-        >back</nuxt-link
-      >
-    </p>
+        <p class="button-area">
+        <nuxt-link to="/works" class="buttonPrimary buttonPrimary--leftArrow"
+            >back</nuxt-link
+        >
+        </p>
+    </ScrollView>
   </div>
 </template>
 

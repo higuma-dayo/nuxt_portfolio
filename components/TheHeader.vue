@@ -15,6 +15,9 @@
           <li>
             <nuxt-link to="/works" class="menu__link">works</nuxt-link>
           </li>
+          <li>
+            <nuxt-link to="/contact" class="menu__link">contact</nuxt-link>
+          </li>
         </ul>
       </nav>
     </div>
