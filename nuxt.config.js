@@ -64,5 +64,7 @@ export default {
   build: {},
   generate: { 
     dir: 'public' 
-  } 
+  },
+  
+  loading: './components/Loading.vue'
 }
