@@ -47,6 +47,7 @@ export default class ParticleCanvas extends Vue {
   regenerateCanvas() {
     this.writeCanvas(true);
   }
+  
   writeCanvas(doRegenerateDots: boolean) {
     const { canvasWrapper } = this.$refs;
     if (!isElement(canvasWrapper)) return;
@@ -100,9 +101,31 @@ export default class ParticleCanvas extends Vue {
     renderer.setSize(canvasWidth + 100, canvasHeight + 100);
     const camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight);
     camera.position.set(0, 0, 1000);
-    const controls = new OrbitControls(camera, document.body);
+
+    let rot = 0; // 角度
+    let mouseX = 0; // マウス座標
+    
+    const targetRot = (mouseX / window.innerWidth) * 360;
+    // イージングの公式を用いて滑らかにする
+    // 値 += (目標値 - 現在の値) * 減速値
+    rot += (targetRot - rot) * 0.4;
+ 
+    // ラジアンに変換する
+    const radian = rot * Math.PI / 180;
+    // 角度に応じてカメラの位置を設定
+    camera.position.x = -1000 * Math.sin(radian);
+    //camera.position.y = -100 * Math.cos(radian);
+    camera.position.z = 1000 * Math.cos(radian);
+    // 原点方向を見つめる
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+    const controls = new OrbitControls(camera, canvas);
     controls.autoRotate = true;
     controls.autoRotateSpeed = 1.5;
+    // 滑らかにカメラコントローラーを制御する
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.2;
+    controls.enableZoom = false;
     // start animation
     this.moveRunningIdsToTerminateIds();
     const pid = new Date().getTime();
@@ -113,6 +136,8 @@ export default class ParticleCanvas extends Vue {
       controls
     );
   }
+
+  //毎フレーム時に実行されるループイベント
   private updateCanvas = (
     self: any,
     renderer: THREE.WebGLRenderer,
