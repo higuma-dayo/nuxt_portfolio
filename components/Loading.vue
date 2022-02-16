@@ -1,5 +1,5 @@
 <template>
-  <div class="loader-background" v-if="loading">
+  <div v-if="loading" class="loader-background">
     <!-- <div class="loader"></div> -->
     <div class="circle-border">
         <div class="circle-core"></div>
@@ -8,23 +8,23 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'nuxt-property-decorator';
-
-@Component({
-  name: 'Loading',
-})
-export default class Loading extends Vue {
-  @Prop()
-  private loading: boolean = false;
-
-  private start() {
-    this.loading = true;
+import Vue from "vue";
+export default Vue.extend({
+  name: "Loading",
+  data() {
+    return {
+      loading: false
+    };
+  },
+  methods: {
+    start() {
+      this.loading = true;
+    },
+    finish() {
+      this.loading = false;
+    }
   }
-
-  private finish() {
-    this.loading = false;
-  }
-}
+});
 </script>
 
 <style scoped>
