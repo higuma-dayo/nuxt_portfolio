@@ -1,10 +1,10 @@
 <template>
   <div>
-
-    <WebGL></WebGL>
-
     <div class="mainVisual">
-      <picture>
+      <WebGL />
+      <StarWars />
+      <!-- <TopMessage /> -->
+      <!-- <picture>
         <source
           :width="settings.mainVisualSp.width"
           :height="settings.mainVisualSp.height"
@@ -17,7 +17,7 @@
           :src="settings.mainVisualPc.url"
           alt=""
         />
-      </picture>
+      </picture> -->
     </div>
 
     <ScrollView>
@@ -112,13 +112,6 @@ export default {
 
 <style lang="scss" scoped>
 .mainVisual {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-
   img {
     width: 100%;
   }

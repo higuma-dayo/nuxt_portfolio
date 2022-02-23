@@ -11,6 +11,15 @@
  */
 
 
+/**
+  * vue-class-component v7.2.6
+  * (c) 2015-present Evan You
+  * @license MIT
+  */
+
+//!\ DECLARE ALIAS AFTER assign prototype !
+
+
 /*!
   * vue-router v3.5.3
   * (c) 2021 Evan You
@@ -28,12 +37,3 @@
  * (c) 2021 Evan You
  * @license MIT
  */
-
-
-/**
-  * vue-class-component v7.2.6
-  * (c) 2015-present Evan You
-  * @license MIT
-  */
-
-//!\ DECLARE ALIAS AFTER assign prototype !

@@ -100,24 +100,12 @@ export default class ParticleCanvas extends Vue {
     // particleの中心が画面外に出たとき突然particleが消失したように見えるのを防ぐため+100する
     renderer.setSize(canvasWidth + 100, canvasHeight + 100);
     const camera = new THREE.PerspectiveCamera(45, canvasWidth / canvasHeight);
-    camera.position.set(0, 0, 1000);
+    //camera.position.set(0, 0, 1000);
 
-    let rot = 0; // 角度
-    let mouseX = 0; // マウス座標
-    
-    const targetRot = (mouseX / window.innerWidth) * 360;
-    // イージングの公式を用いて滑らかにする
-    // 値 += (目標値 - 現在の値) * 減速値
-    rot += (targetRot - rot) * 0.4;
- 
-    // ラジアンに変換する
-    const radian = rot * Math.PI / 180;
-    // 角度に応じてカメラの位置を設定
-    camera.position.x = -1000 * Math.sin(radian);
-    //camera.position.y = -100 * Math.cos(radian);
-    camera.position.z = 1000 * Math.cos(radian);
-    // 原点方向を見つめる
-    camera.lookAt(new THREE.Vector3(0, 0, 0));
+    let rotX = 0; // 角度
+    let rotY = 0; // 角度
+    let mouseX = 0; // マウス座標X
+    let mouseY = 0; // マウス座標Y
 
     const controls = new OrbitControls(camera, canvas);
     controls.autoRotate = true;
@@ -133,7 +121,11 @@ export default class ParticleCanvas extends Vue {
     this.updateCanvas(this, renderer, pid)(
       scene,
       camera,
-      controls
+      controls,
+      rotX,
+      rotY,
+      mouseX,
+      mouseY
     );
   }
 
@@ -142,14 +134,18 @@ export default class ParticleCanvas extends Vue {
     self: any,
     renderer: THREE.WebGLRenderer,
     pid: number
-  ) => (scene: THREE.Scene, camera: THREE.PerspectiveCamera, controls: any) => {
+  ) => (scene: THREE.Scene, camera: THREE.PerspectiveCamera, controls: any, rotX: number, rotY: number, mouseX: number, mouseY: number) => {
     // thisへはアクセスできないので注意
     if (self.shouldProcessBeTerminated(pid)) return;
     const recursion = () =>
       self.updateCanvas(self, renderer, pid)(
         scene,
         camera,
-        controls
+        controls,
+        rotX,
+        rotY,
+        mouseX,
+        mouseY
       );
     // main animation processing
     const time = Date.now() * 0.00005;
@@ -164,6 +160,31 @@ export default class ParticleCanvas extends Vue {
           object.rotation.z = time * (i < 5 ? i + 1 : -(i + 1)) * 0.1;
       }
     }
+
+    // マウス座標はマウスが動いた時のみ取得できる
+    window.addEventListener("mousemove", (event) => {
+      mouseX = event.pageX;
+      //mouseY = event.pageY;
+    });
+    // マウスの位置に応じて角度を設定
+    // マウスのX座標がステージの幅の何%の位置にあるか調べてそれを360度で乗算する
+    const targetRotX = (mouseX / window.innerWidth) * 360;
+    // マウスのY座標がステージの高さの何%の位置にあるか調べてそれを360度で乗算する
+    //const targetRotY = (mouseY / window.innerHeight) * 360;
+    // イージングの公式を用いて滑らかにする
+    // 値 += (目標値 - 現在の値) * 減速値
+    rotX += (targetRotX - rotX) * 0.4;
+    //rotY += (targetRotY - rotY) * 0.4;
+    // ラジアンに変換する
+    const radianX = rotX * Math.PI / 180;
+    //const radianY = rotX * Math.PI / 180;
+    // 角度に応じてカメラの位置を設定
+    camera.position.x = -1000 * Math.sin(radianX);
+    camera.position.z = 1000 * Math.cos(radianX);
+    //camera.position.y = 1000 * Math.sin(radianY);
+    // 原点方向を見つめる
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
+    
     controls.update();
     renderer.render(scene, camera);
     if (!self.shouldBeStopped) {

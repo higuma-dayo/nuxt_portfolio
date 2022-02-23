@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/webgl", {data:[{}],fetch:{},mutations:[]});
