@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <ScrollView>
+    <!-- <ScrollView> -->
         <div class="container">
         <dl class="worksItem">
             <dt class="worksItem__title">URL</dt>
@@ -83,7 +83,7 @@
             >back</nuxt-link
         >
         </p>
-    </ScrollView>
+    <!-- </ScrollView> -->
   </div>
 </template>
 

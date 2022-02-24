@@ -20,7 +20,7 @@
       </picture> -->
     </div>
 
-    <ScrollView>
+    <!-- <ScrollView> -->
       <section id="about" class="sectionPrimary">
         <div class="container">
           <h2 class="headingPrimary">about</h2>
@@ -53,9 +53,9 @@
           </div>
         </div>
       </section>
-    </ScrollView>
+    <!-- </ScrollView> -->
 
-    <ScrollView>
+    <!-- <ScrollView> -->
       <section class="sectionPrimary background--gray">
         <div class="container">
           <h2 class="headingPrimary">works</h2>
@@ -87,7 +87,7 @@
           </p>
         </div>
       </section>
-    </ScrollView>
+    <!-- </ScrollView> -->
   </div>
 </template>
 

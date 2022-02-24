@@ -1,5 +1,9 @@
 <template>
     <div id="app" @click.prevent="toggleBtn">
+        <audio ref="audio">
+            <source src="https://s.cdpn.io/1202/Star_Wars_original_opening_crawl_1977.ogg" type="audio/ogg" />
+            <source src="https://s.cdpn.io/1202/Star_Wars_original_opening_crawl_1977.mp3" type="audio/mpeg" />
+        </audio>
         <div v-if="toggle">
             <TopMessage />
         </div>
@@ -155,18 +159,13 @@ export default {
     methods: {
         toggleBtn(){
             this.toggle === true ? this.toggle = false : this.toggle = true
-            
-            const audio = new Audio("https://s.cdpn.io/1202/Star_Wars_original_opening_crawl_1977.mp3");
-            const audioOgg = new Audio("https://s.cdpn.io/1202/Star_Wars_original_opening_crawl_1977.ogg");
+            const audio = this.$refs.audio
             
             if (! this.toggle){
                 audio.currentTime = 0;
                 audio.play();
-                audioOgg.currentTime = 0;
-                audioOgg.play();
             }else{
                 audio.pause();
-                audioOgg.pause();
             }
         }
     }

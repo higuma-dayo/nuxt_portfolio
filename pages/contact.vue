@@ -8,7 +8,7 @@
         </div>
 
         <div class="container">
-            <ScrollView>
+            <!-- <ScrollView> -->
                 <div class="Form">
                     <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfeIMqahcYG5_lC5d7a5g5s_TOkbYVlH6n2G6Lnjyriju9hTg/formResponse">
                         <div class="Form-Item">
@@ -22,7 +22,7 @@
                         <input type="submit" class="Form-Btn" value="送信する">
                     </form>
                 </div>
-            </ScrollView>
+            <!-- </ScrollView> -->
         </div>
     </div>
 </template>

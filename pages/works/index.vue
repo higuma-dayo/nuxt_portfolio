@@ -11,7 +11,7 @@
       <ol class="row works">
          <li v-for="work in works.contents" :key="work.id" class="works__item">
             <nuxt-link :to="`/works/${work.id}/`" class="works__inner">
-                <ScrollView>
+                <!-- <ScrollView> -->
                     <figure class="works__image">
                         <img
                         :width="work.thumbnail.width"
@@ -29,7 +29,7 @@
                         />
                         </p>
                     </div>
-                </ScrollView>
+                <!-- </ScrollView> -->
             </nuxt-link>
           </li>
       </ol>
