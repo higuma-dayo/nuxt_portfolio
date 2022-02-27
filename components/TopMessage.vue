@@ -23,10 +23,14 @@
   -ms-transform: translate(-50%, -50%);
   z-index: 1;
   
-  font-family: 'Lato', sans-serif;
-  font-size: 45px;
+  font-family: $font-ubuntu;
+  font-size: 30px;
   line-height: 50px;
   color: #ecf0f1;
+
+  @include mq() {
+    font-size: 45px;
+  }
   
   &__container {
     font-weight: 600;
@@ -50,7 +54,7 @@
       top: 0;
       
       color: #16a085;
-      font-size: 52px;
+      font-size: 38px;
       line-height: 50px;
       
       -webkit-animation-name: opacity;
@@ -59,6 +63,10 @@
       animation-name: opacity;
       animation-duration: 2s;
       animation-iteration-count: infinite;
+
+      @include mq() {
+        font-size: 52px;
+      }
     }
 
     &__text {
@@ -69,9 +77,10 @@
 
     &__list {
       margin-top: 0;
-      padding-left: 170px;
+      padding-left: 130px;
       text-align: left;
       list-style: none;
+      white-space: nowrap;
       
       -webkit-animation-name: change;
       -webkit-animation-duration: 10s;
@@ -79,6 +88,10 @@
       animation-name: change;
       animation-duration: 10s;
       animation-iteration-count: infinite;
+
+      @include mq() {
+        padding-left: 170px;
+      }
 
       &__item {
         line-height:50px;

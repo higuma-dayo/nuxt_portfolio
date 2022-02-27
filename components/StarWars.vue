@@ -13,9 +13,10 @@
                     <section class="intro">
                         A long time ago, in a galaxy far,<br> far away....
                     </section>
-                        
-                    <section class="titles">
-                        <div contenteditable="true" spellcheck="false">  
+                       
+                    <section class="message">
+                      <div class="titles">
+                        <div class="titles__Article" contenteditable="true" spellcheck="false">  
                             <p>
                                 It is a period of civil war.
                                 Rebel spaceships, striking
@@ -44,6 +45,7 @@
                                 freedom to the galaxy....
                             </p>
                         </div>
+                      </div>
                     </section>
                     
                     <section class="logo">
@@ -187,11 +189,16 @@ export default {
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-	font-size: 200%;
-	font-weight: 400;
+	  font-size: 130%;
+	  font-weight: 400;
   	color: rgb(75, 213, 238);
     opacity: 0;
-	animation: intro 6s ease-out 1s;
+	  animation: intro 6s ease-out 1s;
+    white-space: nowrap;
+
+    @include mq() {
+      font-size: 200%;
+    }
   }
   
   .logo {
@@ -201,30 +208,37 @@ export default {
     animation: logo 9s ease-out 9s; 
     
     svg {
-      width: inherit;
+      width: 100%;
     }
+  }
+
+  .message {
+    bottom: 2%;
+    left: 50%;
+    transform: translate(-50%);
+    -webkit-transform: translate(-50%);
+    -ms-transform: translate(-50%);
   }
   
   .titles {
     $titles-width: 14.65em;
-    //$titles-width: 100vh;
     width: $titles-width;
     margin: 0, 0, 0, calc(-1 * ($titles-width) / 2);
-    top: auto;
-    left: 25%;
-    bottom: 2%;
   	height: 50em;
-  	font-size: 300%;
-    //font-size: 10vh;
+  	font-size: 200%;
     color: rgb(245, 246, 101);
   	text-align: justify;
 	  overflow: hidden;
     transform-origin: 50% 100%;
     transform: (perspective(300px) rotateX(25deg));
+
+    @include mq() {
+      font-size: 300%;
+    }
   
-    > div {
+    &__Article {
 	    position: absolute;
-	    top: 100%;
+      top: 100%;
 	    animation: titles 81s linear 13s;
     
       > p {

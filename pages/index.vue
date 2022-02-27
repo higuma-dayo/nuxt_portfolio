@@ -3,6 +3,7 @@
     <div class="mainVisual">
       <WebGL />
       <StarWars />
+      <nuxt-link v-scroll-to="'#about'" to class="mainVisual__button"/>
       <!-- <TopMessage /> -->
       <!-- <picture>
         <source
@@ -112,6 +113,79 @@ export default {
 
 <style lang="scss" scoped>
 .mainVisual {
+  &__button {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -16px;
+  display: block;
+  width: 32px;
+  height: 32px;
+  border: 2px solid #FFF;
+  background-size: 14px auto;
+  border-radius: 50%;
+  z-index: 2;
+  -webkit-animation: bounce 2s infinite 2s;
+  animation: bounce 2s infinite 2s;
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+  transform: scale(1)
+}
+
+&__button:before,&__button::after {
+  content: ""; /* 疑似要素に指定必須 */
+  width: 12px; /* 線の長さを指定 */
+  height: 3px; /* 線の幅を指定 */
+  display: inline-block; /* インラインブロックにする */
+  border-radius: 2px; /* 線を角丸にする */
+  background: white;   /* 線の色を指定 */
+  position: absolute; /* 相対位置に指定 */
+    // position: absolute;
+    // top: calc(50% - 8px);
+    // left: calc(50% - 6px);
+    // transform: rotate(-45deg);
+    // display: block;
+    // width: 12px;
+    // height: 12px;
+    // content: "";
+    // border: 2px solid white;
+    // border-width: 0px 0 2px 2px;
+    // border-radius: 2px;
+}
+
+&__button::before {
+  top: calc(77% - 8px);
+  left: calc(45% - 8px);    /* 数値は微調整してください */
+  transform: rotate(45deg); /* 45度回転させる */
+}
+&__button::after {
+  top: calc(77% - 8px);
+  left: calc(70% - 8px);  /* 数値は微調整してください */
+  transform: rotate(-45deg); /* -45度回転させる */
+}
+
+@keyframes bounce {
+  0%,
+  100%,
+  20%,
+  50%,
+  80% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+  60% {
+    -webkit-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    transform: translateY(-5px);
+  }
+  }
+
   img {
     width: 100%;
   }

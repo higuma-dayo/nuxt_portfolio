@@ -21,7 +21,9 @@ export default {
   css: ['ress','~/assets/scss/base.scss','~/assets/scss/global.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    '~plugins/vue-scrollto'
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
