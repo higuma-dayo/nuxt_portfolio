@@ -213,11 +213,15 @@ export default {
   }
 
   .message {
-    bottom: 2%;
+    bottom: 0%;
     left: 50%;
     transform: translate(-50%);
     -webkit-transform: translate(-50%);
     -ms-transform: translate(-50%);
+
+    @include mq() {
+      bottom: 2%;
+    }
   }
   
   .titles {
@@ -225,7 +229,7 @@ export default {
     width: $titles-width;
     margin: 0, 0, 0, calc(-1 * ($titles-width) / 2);
   	height: 50em;
-  	font-size: 200%;
+  	font-size: 170%;
     color: rgb(245, 246, 101);
   	text-align: justify;
 	  overflow: hidden;
