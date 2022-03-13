@@ -1,13 +1,13 @@
 <template>
     <div class="content">
         <div class="content__container">
-            <p class="content__container__text">Hello</p>
+            <p class="content__container__text">I am</p>
 
             <ul class="content__container__list">
-                <li class="content__container__list__item">world !</li>
-                <li class="content__container__list__item">bob !</li>
-                <li class="content__container__list__item">users !</li>
-                <li class="content__container__list__item">everybody !</li>
+                <li class="content__container__list__item">Developer</li>
+                <li class="content__container__list__item">Creator</li>
+                <li class="content__container__list__item">Photographer</li>
+                <li class="content__container__list__item">Coder</li>
             </ul>
         </div>
     </div>

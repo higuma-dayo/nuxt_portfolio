@@ -24,6 +24,7 @@
                 </div>
             <!-- </ScrollView> -->
         </div>
+        <FloatingButton />
     </div>
 </template>
 

@@ -84,6 +84,7 @@
         >
         </p>
     <!-- </ScrollView> -->
+    <FloatingButton />
   </div>
 </template>
 

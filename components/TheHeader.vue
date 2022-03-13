@@ -3,7 +3,7 @@
     <div class="headerContainer">
       <!-- ロゴ -->
       <component :is="isTopPage ? 'h1' : 'p'" class="logo">
-        <nuxt-link to="/">My Portfolio</nuxt-link>
+        <nuxt-link to="/">Miguel's Portfolio</nuxt-link>
       </component>
 
       <!-- メニュー -->
@@ -14,6 +14,9 @@
           </li>
           <li>
             <nuxt-link to="/works" class="menu__link">works</nuxt-link>
+          </li>
+          <li>
+            <a href="https://next-nft-marketplace.vercel.app/" class="menu__link">NFTStore(demo)</a>
           </li>
           <li>
             <nuxt-link to="/contact" class="menu__link">contact</nuxt-link>

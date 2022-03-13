@@ -32,6 +32,10 @@
                   <span>{{ settings.name }}</span>
                   <span lang="en">{{ settings.nameEnglish }}</span>
                 </p>
+                <p class="profile__bizname">
+                  <span>ビジネスネーム</span>
+                  <span lang="en">{{ settings.bizname }}</span>
+                </p>
                 <dl class="profile__item">
                   <dt class="profile__title">技術スタック</dt>
                   <dd>{{ settings.skills }}</dd>
@@ -89,6 +93,7 @@
         </div>
       </section>
     <!-- </ScrollView> -->
+    <FloatingButton />
   </div>
 </template>
 
@@ -216,6 +221,26 @@ export default {
 
     @include mq() {
       font-size: fz(28);
+      margin-bottom: 0.857em;
+    }
+
+    [lang='en'] {
+      font-size: fz(18);
+
+      &::before {
+        content: '/';
+        margin: 0 0.5em;
+      }
+    }
+  }
+
+  &__bizname {
+    font-size: fz(14);
+    font-weight: bold;
+    margin-bottom: 0.5em;
+
+    @include mq() {
+      font-size: fz(18);
       margin-bottom: 0.857em;
     }
 
