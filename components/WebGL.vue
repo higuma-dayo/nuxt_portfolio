@@ -243,6 +243,7 @@ export default class ParticleCanvas extends Vue {
   justify-content: center;
   flex-direction: column;
   width: auto;
+  top: -20px;
   height: 90vh;
   overflow: hidden;
   position: relative;

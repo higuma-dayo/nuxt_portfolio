@@ -213,14 +213,14 @@ export default {
   }
 
   .message {
-    bottom: 0%;
+    bottom: 3%;
     left: 50%;
     transform: translate(-50%);
     -webkit-transform: translate(-50%);
     -ms-transform: translate(-50%);
 
     @include mq() {
-      bottom: 2%;
+      bottom: 5%;
     }
   }
   
