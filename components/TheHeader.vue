@@ -36,7 +36,7 @@
           </li>
         </ul>
       </nav>
-      <div v-show="isMobile && isActiveMenu" class="circle-bg" :class="{'circleactive': isActiveMenu}"></div>
+      <div v-show="isMobile" class="circle-bg" :class="{'circleactive': isActiveMenu}"></div>
 
       <!-- メニュー -->
       <nav v-show="!isMobile">
