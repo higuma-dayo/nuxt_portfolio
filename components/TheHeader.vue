@@ -36,7 +36,7 @@
           </li>
         </ul>
       </nav>
-      <div class="circle-bg" :class="{'circleactive': isActiveMenu}"></div>
+      <div v-show="isMobile && isActiveMenu" class="circle-bg" :class="{'circleactive': isActiveMenu}"></div>
 
       <!-- メニュー -->
       <nav v-show="!isMobile">
@@ -216,9 +216,13 @@ export default {
   /*position:fixed;にし、z-indexの数値を大きくして前面へ*/
   position:fixed;
   z-index: 999;
-  top: 0;
   width:100%;
   height: 100vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
 
 /*丸の拡大*/
