@@ -25,7 +25,7 @@
             </nuxt-link>
           </li>
           <li class="nav-item" @click="isActiveMenu = !isActiveMenu">
-            <a href="https://next-nft-marketplace.vercel.app/" class="menu-link">
+            <a href="https://next-nft-marketplace.vercel.app/tutorial" class="menu-link" target="_blank">
               NFTStore(demo)
             </a>
           </li>
@@ -48,7 +48,7 @@
             <nuxt-link to="/works" class="menu__link">works</nuxt-link>
           </li>
           <li>
-            <a href="https://next-nft-marketplace.vercel.app/" class="menu__link">NFTStore(demo)</a>
+            <a href="https://next-nft-marketplace.vercel.app/tutorial" class="menu__link" target="_blank">NFTStore(demo)</a>
           </li>
           <li>
             <nuxt-link to="/contact" class="menu__link">contact</nuxt-link>
