@@ -22,14 +22,17 @@ jobs:
           node-version: '14'
       - run: npm install
 
-      - name: Generate static page
+      # - name: Generate static page
+      #   env:
+      #     MICRO_CMS_API_KEY: ${{ secrets.MICRO_CMS_API_KEY }}
+      #     MICRO_CMS_API_URL: ${{ secrets.MICRO_CMS_API_URL }}
+      # - run: npm run generate
+
+      - name: Deploy and Generate to Firebase Hosting
         env:
           MICRO_CMS_API_KEY: ${{ secrets.MICRO_CMS_API_KEY }}
           MICRO_CMS_API_URL: ${{ secrets.MICRO_CMS_API_URL }}
-      # - run: npm run generate
-
-      # - name: Deploy to Firebase Hosting
-       - run: npm ci && npm run generate
+      - run: npm ci && npm run generate
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
