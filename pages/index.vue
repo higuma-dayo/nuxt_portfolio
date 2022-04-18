@@ -79,8 +79,8 @@
                   <p class="works__name">{{ work.title }}</p>
                   <p class="works__date">
                     <time
-                      :datetime="work.release"
-                      v-text="$dateFns.format(new Date(work.release), 'yyyy.MM.dd')"
+                      :datetime="work.date"
+                      v-text="$dateFns.format(new Date(work.date), 'yyyy.MM.dd')"
                     />
                   </p>
                 </div>

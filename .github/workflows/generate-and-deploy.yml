@@ -23,13 +23,18 @@ jobs:
           node-version: '12.x'
 
       - name: Install dependencies
-        run: yarn
+        run: npm
 
       - name: Generate static page
         env:
           MICRO_CMS_API_KEY: ${{ secrets.MICRO_CMS_API_KEY }}
           MICRO_CMS_API_URL: ${{ secrets.MICRO_CMS_API_URL }}
-        run: yarn generate
+        run: npm run generate
 
-      - name: Deploy to Firebase Hosting
-        run: yarn deploy --token=${{ secrets.FIREBASE_TOKEN }}
+      - run: npm ci && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_C0EF0 }}'
+          channelId: live
+          projectId: portfolio-c0ef0
