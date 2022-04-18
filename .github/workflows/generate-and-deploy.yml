@@ -13,24 +13,14 @@ jobs:
     name: GENERATE and DEPLOY
     runs-on: ubuntu-latest
     steps:
-
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Setup node
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Generate static page
+      - uses: actions/setup-node@v1
+      - run: npm install
         env:
           MICRO_CMS_API_KEY: ${{ secrets.MICRO_CMS_API_KEY }}
           MICRO_CMS_API_URL: ${{ secrets.MICRO_CMS_API_URL }}
       - run: npm run generate
 
+      - uses: actions/checkout@v2
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
