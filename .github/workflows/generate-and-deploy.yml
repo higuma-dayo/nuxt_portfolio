@@ -19,7 +19,7 @@ jobs:
           MICRO_CMS_API_KEY: '${{ secrets.MICRO_CMS_API_KEY }}'
           MICRO_CMS_API_URL: '${{ secrets.MICRO_CMS_API_URL }}'
       - run: npm run generate
-      - run: npm run build
+      # - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
