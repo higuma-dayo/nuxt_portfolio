@@ -29,7 +29,7 @@ jobs:
         env:
           MICRO_CMS_API_KEY: ${{ secrets.MICRO_CMS_API_KEY }}
           MICRO_CMS_API_URL: ${{ secrets.MICRO_CMS_API_URL }}
-        run: npm run generate
+      - run: npm run generate
 
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
