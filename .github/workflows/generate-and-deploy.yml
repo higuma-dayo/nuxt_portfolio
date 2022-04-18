@@ -5,7 +5,7 @@ on:
     types: [update_post]
   push:
     branches:
-      - master
+      - main
 
 jobs:
 
@@ -23,7 +23,7 @@ jobs:
           node-version: '12.x'
 
       - name: Install dependencies
-        run: npm
+        run: npm install
 
       - name: Generate static page
         env:
