@@ -1,28 +1,28 @@
-# name: Generate static page & Deploy to Firebase Hosting
+name: Generate static page & Deploy to Firebase Hosting
 
-# on:
-#   repository_dispatch:
-#     types: [update_post]
-#   push:
-#     branches:
-#       - main
+on:
+  repository_dispatch:
+    types: [update_post]
+  push:
+    branches:
+      - main
 
-# jobs:
+jobs:
 
-#   generate-deploy:
-#     name: GENERATE and DEPLOY
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - run: npm ci
-#         env:
-#           MICRO_CMS_API_KEY: '${{ secrets.MICRO_CMS_API_KEY }}'
-#           MICRO_CMS_API_URL: '${{ secrets.MICRO_CMS_API_URL }}'
-#       - run: npm run generate
-#       # - run: npm run build
-#       - uses: FirebaseExtended/action-hosting-deploy@v0
-#         with:
-#           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-#           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_C0EF0 }}'
-#           channelId: live
-#           projectId: portfolio-c0ef0
+  generate-deploy:
+    name: GENERATE and DEPLOY
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm ci
+        env:
+          MICRO_CMS_API_KEY: '${{ secrets.MICRO_CMS_API_KEY }}'
+          MICRO_CMS_API_URL: '${{ secrets.MICRO_CMS_API_URL }}'
+      - run: npm run generate
+      # - run: npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_C0EF0 }}'
+          channelId: live
+          projectId: portfolio-c0ef0
