@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <p class="copyright">
-      <small>©️2022 Miguel All Rights Reserved.</small>
+      <small>©️2022 My Portfolio All Rights Reserved.</small>
     </p>
   </footer>
 </template>
