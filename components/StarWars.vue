@@ -13,7 +13,6 @@
                     <section class="intro">
                         A long time ago, in a galaxy far,<br> far away....
                     </section>
-                       
                     <section class="message">
                       <div class="titles">
                         <div class="titles__Article" contenteditable="true" spellcheck="false">  

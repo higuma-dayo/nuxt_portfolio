@@ -120,7 +120,7 @@ export default {
 .mainVisual {
   &__button {
   position: absolute;
-  bottom: 30px;
+  bottom: 50px;
   left: 50%;
   margin-left: -16px;
   display: block;
