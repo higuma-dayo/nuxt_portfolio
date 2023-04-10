@@ -8,8 +8,8 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { mapGetters, mapMutations } from "vuex";
 import * as THREE from "three";
+import { OrbitControls } from "../node_modules/three/examples/jsm/controls/OrbitControls";
 import { randomRange } from "~/assets/ts/random";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 const isElement = (x: any): x is Element => x instanceof Element;
 @Component({
   computed: {
