@@ -24,6 +24,7 @@
     "nuxt-microcms-module": "^2.0.0",
     "nuxt-property-decorator": "^2.9.1",
     "nuxt-webfontloader": "^1.1.0",
+    "postcss": "^8.4.21",
     "ress": "^4.0.0",
     "three": "^0.107.0",
     "three-orbitcontrols": "^2.110.3",
