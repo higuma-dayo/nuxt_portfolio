@@ -27,7 +27,6 @@
     "postcss": "^8.4.21",
     "ress": "^4.0.0",
     "three": "^0.107.0",
-    "three-orbitcontrols": "^2.110.3",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5",
     "vue": "^2.6.14",
