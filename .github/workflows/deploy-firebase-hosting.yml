@@ -34,7 +34,11 @@ jobs:
       - name: deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          args: deploy --only hosting --project=${{ secrets.FIREBASE_PROJECT_ID }}
+          args: deploy
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_C0EF0 }}'
+          channelId: live
+          projectId: '${{ secrets.FIREBASE_PROJECT_ID }}'
           entryPoint: ./
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
