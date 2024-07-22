@@ -20,14 +20,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        run: yarn install
       - name: Generate static page
         env:
           MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
-      - name: yarn install, generate
-        run: |
-          yarn install
-          yarn generate
+          run: yarn generate
       - name: Copy Firebase configuration
         run: cp firebase.json ./public/
       - name: List build output
