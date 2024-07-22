@@ -20,6 +20,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Generate static page
+        env:
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
       - name: yarn install, generate
         run: |
           yarn install
@@ -31,9 +35,7 @@ jobs:
       - name: deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          args: deploy
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_C0EF0 }}'
-          channelId: live
-          projectId: portfolio-c0ef0
+          args: deploy --only hosting --project=${{ secrets.FIREBASE_PROJECT_ID }}
           entryPoint: ./
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
