@@ -17,17 +17,19 @@ export default {
     link: [
       // { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       { rel: 'icon', type: 'image/png', href: '/favicons/icon-192x192.png' },
-     { rel: 'apple-touch-icon', type: 'image/png', href: '/favicons/apple-touch-icon-180x180.png' },
+      {
+        rel: 'apple-touch-icon',
+        type: 'image/png',
+        href: '/favicons/apple-touch-icon-180x180.png',
+      },
     ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['ress','~/assets/scss/base.scss','~/assets/scss/global.scss'],
+  css: ['ress', '~/assets/scss/base.scss', '~/assets/scss/global.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    '~plugins/vue-scrollto'
-  ],
+  plugins: ['~plugins/vue-scrollto'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -35,7 +37,13 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/typescript
-    '@nuxt/typescript-build',
+    [
+      '@nuxt/typescript-build',
+      {
+        typeCheck: true,
+        ignoreNotFoundWarnings: true,
+      },
+    ],
     '@nuxtjs/dotenv',
     '@nuxtjs/style-resources',
     '@nuxtjs/date-fns',
@@ -47,10 +55,7 @@ export default {
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-  'nuxt-microcms-module',
-  'nuxt-webfontloader',
-  ],
+  modules: ['nuxt-microcms-module', 'nuxt-webfontloader'],
 
   webfontloader: {
     google: {
@@ -75,7 +80,7 @@ export default {
         },
       },
     },
-    extend(config) {
+    extend(config, ctx) {
       config.module.rules.push({
         test: /\.(ogg|mp3|wav|mpe?g)$/i,
         loader: 'file-loader',
@@ -83,11 +88,31 @@ export default {
           name: '[path][name].[ext]',
         },
       })
+      config.module.rules.push({
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
+          transpileOnly: true,
+        },
+        exclude: /node_modules/,
+      })
+      if (ctx.isClient) {
+        config.module.rules.push({
+          test: /\.tsx?$/,
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+            appendTsSuffixTo: [/\.vue$/],
+          },
+          exclude: /node_modules/,
+        })
+      }
     },
   },
-  generate: { 
-    dir: 'public' 
+  generate: {
+    dir: 'public',
   },
-  
-  loading: './components/Loading.vue'
+
+  loading: './components/Loading.vue',
 }

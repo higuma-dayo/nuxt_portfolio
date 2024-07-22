@@ -6,7 +6,7 @@
     "lib": ["ESNext", "ESNext.AsyncIterable", "DOM"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "allowJs": true,
+    "allowJs": false,
     "sourceMap": true,
     "strict": true,
     "noEmit": true,
@@ -16,11 +16,7 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": [
-      "@nuxt/types",
-      "@types/node",
-      "@nuxtjs/date-fns"
-    ]
+    "types": ["@nuxt/types", "@types/node", "@nuxtjs/date-fns"]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
 }
