@@ -26,7 +26,7 @@ jobs:
         env:
           MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
-          run: yarn generate
+        run: yarn generate
       - name: Copy Firebase configuration
         run: cp firebase.json ./public/
       - name: List build output
