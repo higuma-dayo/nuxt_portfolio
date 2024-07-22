@@ -25,9 +25,9 @@ jobs:
           yarn install
           yarn generate
       - name: Copy Firebase configuration
-        run: cp firebase.json ./dist/
+        run: cp firebase.json ./public/
       - name: List build output
-        run: ls -R ./dist
+        run: ls -R ./public
       - name: deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
