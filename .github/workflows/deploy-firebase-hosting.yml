@@ -24,6 +24,10 @@ jobs:
         run: |
           yarn install
           yarn generate
+      - name: Copy Firebase configuration
+        run: cp firebase.json ./dist/
+      - name: List build output
+        run: ls -R ./dist
       - name: deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -32,3 +36,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_C0EF0 }}'
           channelId: live
           projectId: portfolio-c0ef0
+          entryPoint: ./
