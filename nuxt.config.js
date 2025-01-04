@@ -28,6 +28,12 @@ export default {
     bodyAttrs: {
       class: 'bg-background',
     },
+    script: [
+      {
+        src: 'https://cdn.iframe.ly/embed.js',
+        async: true,
+      },
+    ],
   },
 
   plugins: ['~plugins/vue-scrollto'],

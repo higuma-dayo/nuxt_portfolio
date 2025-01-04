@@ -180,6 +180,12 @@ export default {
         document.body.style.paddingRight = ''
       }
     },
+    'workData.description': {
+      immediate: true,
+      handler() {
+        this.loadIframely();
+      },
+    },
   },
   methods: {
     closeModal() {
@@ -210,6 +216,13 @@ export default {
       this.activeIndex =
         (this.activeIndex - 1 + this.workData.images.length) %
         this.workData.images.length
+    },
+    loadIframely() {
+      if (typeof window !== 'undefined' && window.iframely) {
+        this.$nextTick(() => {
+          window.iframely.load();
+        });
+      }
     },
   },
   mounted() {
