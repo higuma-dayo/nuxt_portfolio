@@ -7,10 +7,10 @@ module.exports = {
         rajdhani: ["'Rajdhani', sans-serif"],
       },
       backgroundImage: {
-        'about': "url('/images/about.png')",
-        'history': "url('/images/history.png')",
-        'works': "url('/images/works.png')",
-      }
+        about: "url('/images/about.png')",
+        history: "url('/images/history.png')",
+        works: "url('/images/works.png')",
+      },
     },
     colors: {
       primary: '#d8fa00',

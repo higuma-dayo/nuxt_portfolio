@@ -2,7 +2,7 @@
   <div>
     <div class="bg-foreground py-2 shadow-2xl lg:rounded-r-2xl">
       <div
-        class="flex -translate-x-2 flex-col bg-works bg-no-repeat rounded-r-2xl border-8 border-solid border-background px-10 py-32"
+        class="flex -translate-x-2 flex-col rounded-r-2xl border-8 border-solid border-background bg-works bg-no-repeat px-10 py-32"
         style="background-size: 100% auto"
       >
         <h2 class="font-rajdhani text-7xl tracking-tight text-copy sm:text-9xl">
@@ -162,12 +162,6 @@
 import WorkModal from './WorksDetails.vue'
 
 export default {
-  props: {
-    slideStyle: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
   components: {
     WorkModal,
   },
@@ -175,42 +169,30 @@ export default {
     return {
       filterContentsType: '',
       filterFlg: false,
-      works: [], // 初期のデータを格納する配列
-      offset: 0, // オフセットの初期値
+      displayedWorks: [], // 表示用の配列
+      currentIndex: 0,
       limit: 10, // 1回で取得するデータの数
-      hasMoreData: true, // データがまだあるかどうかを判定
       isModalOpen: false,
       selectedWork: null,
     }
   },
-  async created() {
-    // 初期データを取得
-    try {
-      const data = await this.$microcms.get({
-        endpoint: 'works',
-        queries: {
-          offset: this.offset,
-          limit: this.limit,
-        },
-      })
-      this.works = data.contents
-      this.offset += this.limit
-
-      // データがlimit未満ならボタンを表示しない
-      if (data.contents.length < this.limit) {
-        this.hasMoreData = false
-      }
-    } catch (error) {
-      console.error('Error fetching works:', error)
-    }
-  },
   computed: {
+    allWorks() {
+      return this.$store.state.microcms.works
+    },
     filteredWorks() {
-      if (!this.filterFlg) return this.works // フィルタが有効でない場合
-      return this.works.filter((work) =>
+      if (!this.filterFlg) return this.displayedWorks
+      return this.displayedWorks.filter((work) =>
         work.type.includes(this.filterContentsType),
       )
     },
+    hasMoreData() {
+      return this.currentIndex < this.allWorks.length
+    },
+  },
+  created() {
+    // 初期データを取得
+    this.loadMore()
   },
   methods: {
     openWorkModal(workData) {
@@ -226,12 +208,9 @@ export default {
       this.filterContentsType = contentsType
       this.filterFlg = true
 
-      // 明示的にデータ更新(Todo: stateで状態管理したい)
-      this.works = [...this.works]
-
       // データを取得しながら、filteredWorksにデータが追加されるまで繰り返す
       while (this.filteredWorks.length === 0 && this.hasMoreData) {
-        await this.loadMore()
+        this.loadMore()
         // filteredWorksが更新されるのを待つ
         await this.$nextTick()
       }
@@ -239,35 +218,15 @@ export default {
     // フィルターをリセット
     filterReset() {
       this.filterFlg = false
-
-      // 明示的にデータ更新(Todo: stateで状態管理したい)
-      this.works = [...this.works]
     },
     // 追加データ取得(10件ずつ)
-    async loadMore() {
-      if (!this.hasMoreData) return // データがない場合は何もしない
-
-      try {
-        const newData = await this.$microcms.get({
-          endpoint: 'works',
-          queries: {
-            offset: this.offset,
-            limit: this.limit,
-          },
-        })
-        // 新しく取得したデータを既存のworksに追加
-        this.works = [...this.works, ...newData.contents]
-        // offsetを更新して次のデータを取得
-        this.offset += this.limit
-
-        // 取得したデータがlimit未満の場合はhasMoreDataをfalseにしてボタンを非表示
-        if (newData.contents.length < this.limit) {
-          this.hasMoreData = false
-        }
-      } catch (error) {
-        console.error('Error fetching more works:', error)
-        this.hasMoreData = false // エラーが起きた場合にもロードを止める
-      }
+    loadMore() {
+      const newItems = this.allWorks.slice(
+        this.currentIndex,
+        this.currentIndex + this.limit,
+      )
+      this.displayedWorks = [...this.displayedWorks, ...newItems]
+      this.currentIndex += this.limit
     },
   },
 }

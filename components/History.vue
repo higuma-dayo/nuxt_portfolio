@@ -2,7 +2,7 @@
   <div>
     <div class="overflow-hidden bg-foreground py-2 shadow-2xl lg:rounded-l-2xl">
       <div
-        class="translate-x-2 rounded-l-2xl bg-history bg-no-repeat border-8 border-solid border-background px-10 py-32"
+        class="translate-x-2 rounded-l-2xl border-8 border-solid border-background bg-history bg-no-repeat px-10 py-32"
         style="background-size: 100% auto"
       >
         <h2 class="font-rajdhani text-7xl tracking-tight text-copy sm:text-9xl">
@@ -16,7 +16,7 @@
           </div>
           <div class="mt-20 flow-root">
             <ul>
-              <li v-for="history in histories" :key="history.id">
+              <li v-for="history in displayedHistories" :key="history.id">
                 <div class="relative pb-8">
                   <span
                     class="absolute left-5 top-5 -ml-px h-full w-0.5 bg-secondary"
@@ -88,16 +88,21 @@
                         </div>
                       </div>
                       <div class="mt-4 grid grid-cols-1 text-copy-light">
-                        <span class="text-left text-sm font-semibold text-copy"
-                          >職種</span
-                        >
-                        <p>{{ history.occupation }}</p>
-                        <span
-                          class="mt-5 text-left text-sm font-semibold text-copy"
-                          >プロジェクト</span
-                        >
-                        <p>{{ history.title }}</p>
-                        <div class="mt-2 py-1">
+                        <div>
+                          <span
+                            class="text-left text-sm font-semibold text-copy"
+                            >職種</span
+                          >
+                          <p>{{ history.occupation }}</p>
+                        </div>
+                        <div class="mt-5">
+                          <span
+                            class="text-left text-sm font-semibold text-copy"
+                            >プロジェクト</span
+                          >
+                          <p>{{ history.title }}</p>
+                        </div>
+                        <ul class="mt-2 list-none py-1">
                           <li
                             v-for="work in history.works"
                             :key="work"
@@ -107,15 +112,17 @@
                               <span>{{ work }}</span>
                             </div>
                           </li>
-                        </div>
+                        </ul>
                         <div class="mt-5 flex items-center">
-                          <a
-                            href="#"
-                            class="text-left text-xs font-bold"
-                            @click.prevent="openHistoryModal(history)"
-                          >
-                            もっと詳しく
-                          </a>
+                          <div>
+                            <a
+                              href="#"
+                              class="text-left text-xs font-bold"
+                              @click.prevent="openHistoryModal(history)"
+                            >
+                              もっと詳しく
+                            </a>
+                          </div>
                           <svg
                             class="h-4 w-4"
                             aria-hidden="true"
@@ -165,44 +172,29 @@
 import HistoryDetails from './HistoryDetails.vue'
 
 export default {
-  props: {
-    slideStyle: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
   components: {
     HistoryDetails,
   },
   data() {
     return {
-      histories: [], // 初期のデータを格納する配列
-      offset: 0, // オフセットの初期値
+      displayedHistories: [],
+      currentIndex: 0,
       limit: 3, // 1回で取得するデータの数
-      hasMoreData: true, // データがまだあるかどうかを判定
       isModalOpen: false,
       selectedHistory: null,
     }
   },
-  async created() {
+  computed: {
+    allHistories() {
+      return this.$store.state.microcms.histories
+    },
+    hasMoreData() {
+      return this.currentIndex < this.allHistories.length
+    },
+  },
+  created() {
     // 初期データを取得
-    try {
-      const data = await this.$microcms.get({
-        endpoint: 'history',
-        queries: {
-          offset: this.offset,
-          limit: this.limit,
-        },
-      })
-      this.histories = data.contents
-
-      // データがlimit未満ならボタンを表示しない
-      if (data.contents.length < this.limit) {
-        this.hasMoreData = false
-      }
-    } catch (error) {
-      console.error('Error fetching histories:', error)
-    }
+    this.loadMore()
   },
   methods: {
     openHistoryModal(historyData) {
@@ -213,24 +205,14 @@ export default {
       this.isModalOpen = false
       this.selectedHistory = null
     },
-    // 追加データ取得(10件ずつ)
-    async loadMore() {
-      // offsetを更新して次のデータを取得
-      this.offset += this.limit
-      const newData = await this.$microcms.get({
-        endpoint: 'history',
-        queries: {
-          offset: this.offset,
-          limit: this.limit,
-        },
-      })
-      // 新しく取得したデータを既存のhistoriesに追加
-      this.histories = [...this.histories, ...newData.contents]
-
-      // 取得したデータがlimit未満の場合はhasMoreDataをfalseにしてボタンを非表示
-      if (newData.contents.length < this.limit) {
-        this.hasMoreData = false
-      }
+    // 追加データ取得(3件ずつ)
+    loadMore() {
+      const newItems = this.allHistories.slice(
+        this.currentIndex,
+        this.currentIndex + this.limit,
+      )
+      this.displayedHistories = [...this.displayedHistories, ...newItems]
+      this.currentIndex += this.limit
     },
   },
 }

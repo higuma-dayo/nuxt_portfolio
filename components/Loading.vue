@@ -1,7 +1,12 @@
 <template>
-  <div v-if="loading" class="fixed inset-0 bg-background opacity-40 flex justify-center items-center z-50">
-    <div class="w-[150px] h-[150px] p-[3px] flex justify-center items-center rounded-full relative bg-gradient-to-b from-[#f5f6651a] to-[#f5f665] animate-spin">
-      <div class="w-full h-full bg-background rounded-full"></div>
+  <div
+    v-if="loading"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-background opacity-40"
+  >
+    <div
+      class="relative flex h-[150px] w-[150px] animate-spin items-center justify-center rounded-full bg-gradient-to-b from-[#f5f6651a] to-[#f5f665] p-[3px]"
+    >
+      <div class="h-full w-full rounded-full bg-background"></div>
     </div>
   </div>
 </template>

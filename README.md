@@ -1,4 +1,5 @@
 ## 2025/1
+
 ポートフォリオをリニューアルしました。</br>
 three.jsの使用やJamstackな環境はそのままに、Styleは全てtailwindに統一しました。
 
@@ -13,5 +14,5 @@ URL：https://bearsforest.net/
 ```
 フロント：Nuxt.js, Three.js
 ミドルウェア：microCMS, Github Actions
-サーバー：firebase Hosting 
+サーバー：firebase Hosting
 ```

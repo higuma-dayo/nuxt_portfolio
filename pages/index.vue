@@ -12,7 +12,7 @@
         <section id="about">
           <div class="bg-foreground py-2 shadow-2xl lg:rounded-r-2xl">
             <div
-              class="flex -translate-x-2 flex-col bg-about bg-no-repeat rounded-r-2xl border-8 border-solid border-background px-10 py-32 max-sm:pt-0"
+              class="flex -translate-x-2 flex-col rounded-r-2xl border-8 border-solid border-background bg-about bg-no-repeat px-10 py-32 max-sm:pt-0"
               style="background-size: 100% auto"
             >
               <div class="h-48 w-full py-8 sm:hidden">
@@ -180,19 +180,11 @@
 
 <script>
 export default {
-  async asyncData({ $microcms }) {
-    const settings = await $microcms.get({
-      endpoint: 'settings',
-    })
-
-    const works = await $microcms.get({
-      endpoint: 'works',
-      queries: { limit: 2 },
-    })
+  async asyncData({ store }) {
+    await store.dispatch('microcms/fetchAllData')
 
     return {
-      settings,
-      works,
+      settings: store.state.microcms.settings,
     }
   },
   data() {

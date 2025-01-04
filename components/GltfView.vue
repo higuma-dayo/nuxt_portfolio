@@ -10,7 +10,7 @@
 <script>
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 const isElement = (x) => x instanceof Element
 
 export default {
@@ -232,25 +232,33 @@ export default {
     },
     // スクロールされたらアニメーションの再生位置を更新
     onScroll() {
-      if (!this.mixer || !this.animations || !this.renderer || !this.scene || !this.camera || !this.isBrowser) return;
-      const scrollY = window.scrollY;
-      const maxScroll = document.body.scrollHeight - window.innerHeight;
+      if (
+        !this.mixer ||
+        !this.animations ||
+        !this.renderer ||
+        !this.scene ||
+        !this.camera ||
+        !this.isBrowser
+      )
+        return
+      const scrollY = window.scrollY
+      const maxScroll = document.body.scrollHeight - window.innerHeight
       // スクロール位置に基づいて再生時間を計算（アニメーション全体の時間をスクロールにマッピング）
-      const scrollProgress = Math.min(scrollY / maxScroll, 1); // 0から1の範囲に正規化
-      const animationDuration = this.animations[0]?.duration ?? 0; // アニメーションの総時間
-      const newTime = scrollProgress * animationDuration; // アニメーションの再生位置
+      const scrollProgress = Math.min(scrollY / maxScroll, 1) // 0から1の範囲に正規化
+      const animationDuration = this.animations[0]?.duration ?? 0 // アニメーションの総時間
+      const newTime = scrollProgress * animationDuration // アニメーションの再生位置
       // アニメーションの再生位置を設定
-      const action = this.mixer.clipAction(this.animations[0]);
+      const action = this.mixer.clipAction(this.animations[0])
       if (action) {
-        action.paused = true; // アニメーションを停止した状態で再生位置を変更
-        action.time = newTime; // 再生時間を設定
-        this.mixer.update(0); // 更新
+        action.paused = true // アニメーションを停止した状態で再生位置を変更
+        action.time = newTime // 再生時間を設定
+        this.mixer.update(0) // 更新
       }
       // レンダリング
       if (this.renderer && this.scene && this.camera) {
-        this.renderer.render(this.scene, this.camera);
+        this.renderer.render(this.scene, this.camera)
       }
-    }
-  }
+    },
+  },
 }
 </script>
