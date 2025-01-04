@@ -1,21 +1,18 @@
 export default {
-  // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Miguel’s portfolio',
+    title: 'Higuma’s portfolio',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'ja',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'higumaのポートフォリオサイトです。最新のスキルとプロジェクト実績を紹介します。' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [
-      // { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       { rel: 'icon', type: 'image/png', href: '/favicons/icon-192x192.png' },
       {
         rel: 'apple-touch-icon',
@@ -23,43 +20,37 @@ export default {
         href: '/favicons/apple-touch-icon-180x180.png',
       },
     ],
+    bodyAttrs: {
+      class: 'bg-background',
+    },
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
-  css: ['ress', '~/assets/scss/base.scss', '~/assets/scss/global.scss'],
-
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['~plugins/vue-scrollto'],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/typescript
-    [
-      '@nuxt/typescript-build',
-      {
-        typeCheck: true,
-        ignoreNotFoundWarnings: true,
-      },
-    ],
     '@nuxtjs/dotenv',
-    '@nuxtjs/style-resources',
     '@nuxtjs/date-fns',
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/color-mode',
   ],
 
-  styleResources: {
-    scss: ['~/assets/scss/app.scss'],
-    hoistUseStatements: true,
+  colorMode: {
+    preference: 'system', // デフォルトのカラーモード
+    fallback: 'light', // システム設定がない場合のフォールバック
+    hid: 'nuxt-color-mode-script',
+    globalName: '$colorMode',
+    componentName: 'ColorScheme',
+    classPrefix: '',
+    classSuffix: '-mode',
   },
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['nuxt-microcms-module', 'nuxt-webfontloader'],
 
   webfontloader: {
     google: {
-      families: ['Ubuntu:wght@400,700&display=swap'],
+      families: ['Rajdhani:wght@300;400;500;600;700&display=swap'],
     },
   },
 
@@ -71,45 +62,10 @@ export default {
     mode: process.env.NODE_ENV === 'production' ? 'server' : 'all',
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    loaders: {
-      vue: {
-        transformAssetUrls: {
-          audio: 'src',
-        },
-      },
-    },
-    extend(config, ctx) {
-      config.module.rules.push({
-        test: /\.(ogg|mp3|wav|mpe?g)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]',
-        },
-      })
-      config.module.rules.push({
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: {
-          appendTsSuffixTo: [/\.vue$/],
-          transpileOnly: true,
-        },
-        exclude: /node_modules/,
-      })
-      if (ctx.isClient) {
-        config.module.rules.push({
-          test: /\.tsx?$/,
-          loader: 'ts-loader',
-          options: {
-            transpileOnly: true,
-            appendTsSuffixTo: [/\.vue$/],
-          },
-          exclude: /node_modules/,
-        })
-      }
-    },
+    transpile: ['three'],
   },
+
   generate: {
     dir: 'public',
   },
