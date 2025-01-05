@@ -13,7 +13,6 @@
     "lintfix": "prettier --write --list-different . && npm run lint:js -- --fix"
   },
   "dependencies": {
-    "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/date-fns": "^1.5.0",
     "@nuxtjs/dotenv": "^1.4.1",
     "firebase": "^9.6.6",

@@ -29,10 +29,13 @@
           <div
             class="absolute inset-0 flex flex-col items-center justify-center p-12"
           >
-            <h2 class="text-center text-lg font-bold sm:text-3xl">
+            <h2 class="text-center text-base font-bold sm:text-3xl">
               {{ workData.title }}
             </h2>
-            <span v-if="workData.date" class="mt-4 whitespace-nowrap text-sm">
+            <span
+              v-if="workData.date"
+              class="mt-4 whitespace-nowrap text-sm max-sm:text-xs"
+            >
               公開日:
               <time
                 :datetime="workData.date"
@@ -53,7 +56,7 @@
             <img
               :src="i.url"
               :alt="`${workData.title}(${index})`"
-              class="h-auto max-h-[300px] w-full object-contain"
+              class="h-[300px] h-auto w-full object-contain"
             />
           </figure>
           <div
@@ -121,7 +124,7 @@
         </div>
       </div>
 
-      <div class="m-8 p-8 text-center">
+      <div class="m-8 p-1 text-center max-sm:text-sm sm:p-8">
         <div
           class="whitespace-pre-wrap [&>span+span]:before:mx-2 [&>span+span]:before:inline-block [&>span+span]:before:content-['/']"
           v-html="workData.description"
@@ -183,7 +186,7 @@ export default {
     'workData.description': {
       immediate: true,
       handler() {
-        this.loadIframely();
+        this.loadIframely()
       },
     },
   },
@@ -220,8 +223,8 @@ export default {
     loadIframely() {
       if (typeof window !== 'undefined' && window.iframely) {
         this.$nextTick(() => {
-          window.iframely.load();
-        });
+          window.iframely.load()
+        })
       }
     },
   },

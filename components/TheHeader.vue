@@ -174,7 +174,6 @@ export default {
     return {
       windowWidth: 900,
       isActiveMenu: false,
-      isDarkMode: false,
     }
   },
   computed: {
@@ -186,17 +185,6 @@ export default {
     // スマホかどうか
     isMobile() {
       return this.windowWidth < 1200
-    },
-  },
-  methods: {
-    toggleColorMode() {
-      this.isDarkMode = !this.isDarkMode
-      if (process.client) {
-        const colorMode = localStorage.getItem('color-mode')
-        const newMode = colorMode === 'dark' ? 'light' : 'dark'
-        localStorage.setItem('color-mode', newMode)
-        document.documentElement.classList.toggle('dark', newMode === 'dark')
-      }
     },
   },
   mounted() {

@@ -33,7 +33,7 @@
                       </div>
                     </div>
                     <div class="min-w-0 py-0">
-                      <div class="text-md text-copy-light">
+                      <div class="text-md text-copy-light max-sm:text-sm">
                         <div>
                           <div class="flex flex-row items-center">
                             <span class="font-semibold text-copy">{{
@@ -54,7 +54,9 @@
                           </div>
                         </div>
                         <div class="mt-1 flex flex-row">
-                          <span class="whitespace-nowrap text-sm">
+                          <span
+                            class="whitespace-nowrap text-sm max-sm:text-xs"
+                          >
                             <time
                               :datetime="history.start"
                               v-text="
@@ -66,10 +68,13 @@
                             >
                             </time>
                           </span>
-                          <span class="mx-2 whitespace-nowrap text-sm">~</span>
+                          <span
+                            class="mx-2 whitespace-nowrap text-sm max-sm:text-xs"
+                            >~</span
+                          >
                           <span
                             v-if="history.end"
-                            class="whitespace-nowrap text-sm"
+                            class="whitespace-nowrap text-sm max-sm:text-xs"
                           >
                             <time
                               :datetime="history.end"
@@ -82,12 +87,16 @@
                             >
                             </time>
                           </span>
-                          <span v-else class="whitespace-nowrap text-sm"
+                          <span
+                            v-else
+                            class="whitespace-nowrap text-sm max-sm:text-xs"
                             >現在</span
                           >
                         </div>
                       </div>
-                      <div class="mt-4 grid grid-cols-1 text-copy-light">
+                      <div
+                        class="mt-4 grid grid-cols-1 text-copy-light max-sm:text-sm"
+                      >
                         <div>
                           <span
                             class="text-left text-sm font-semibold text-copy"
@@ -106,7 +115,7 @@
                           <li
                             v-for="work in history.works"
                             :key="work"
-                            class="my-1 mr-2 inline-block -skew-x-[25deg] rounded-md bg-border px-3 py-1 text-left text-sm shadow-sm"
+                            class="my-1 mr-2 inline-block -skew-x-[25deg] rounded-md bg-border px-3 py-1 text-left text-sm shadow-sm max-sm:text-xs"
                           >
                             <div class="skew-x-[25deg]">
                               <span>{{ work }}</span>

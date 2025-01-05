@@ -40,38 +40,60 @@
                     class="relative col-span-1 col-start-1 mx-auto max-w-lg sm:-translate-x-1/4"
                   >
                     <input
-                      id="article-01"
+                      id="image-01"
                       type="radio"
                       name="slider"
                       class="peer/01 sr-only"
                       checked
                     />
                     <input
-                      id="article-02"
+                      id="image-02"
                       type="radio"
                       name="slider"
                       class="peer/02 sr-only"
                     />
                     <div
-                      class="absolute inset-0 z-20 scale-[67.5%] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] peer-checked/01:relative peer-checked/01:z-50 peer-checked/02:z-40 peer-checked/01:translate-x-0 peer-checked/02:-translate-x-5 peer-checked/02:-translate-y-5 peer-checked/01:scale-100 peer-checked/02:scale-[83.75%] peer-checked/01:[&>label]:pointer-events-none peer-focus-visible/01:[&_article]:ring peer-focus-visible/01:[&_article]:ring-copy"
+                      class="absolute inset-0 z-20 scale-[67.5%] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] peer-checked/01:relative peer-checked/01:z-50 peer-checked/02:z-40 peer-checked/01:translate-x-0 peer-checked/02:-translate-x-7 peer-checked/02:-translate-y-7 peer-checked/01:scale-100 peer-checked/02:scale-[83.75%] peer-checked/01:[&>label]:pointer-events-none peer-focus-visible/01:[&_image]:ring peer-focus-visible/01:[&_image]:ring-copy"
                     >
-                      <label class="absolute inset-0" for="article-01"></label>
+                      <label
+                        class="absolute inset-0 cursor-pointer"
+                        for="image-01"
+                      ></label>
                       <img
                         class="inset-0 mb-0 mb-4 ml-0 inline-flex !h-32 h-24 !w-32 w-24 rounded-2xl border-4 border-solid border-copy object-cover shadow-2xl"
-                        for="article-01"
+                        for="image-01"
                         :src="settings.profileImage.url"
                         :alt="'ProfileImage'"
                       />
                     </div>
                     <div
-                      class="absolute inset-0 z-20 scale-[67.5%] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] peer-checked/02:relative peer-checked/01:z-40 peer-checked/02:z-50 peer-checked/01:translate-x-5 peer-checked/01:translate-y-5 peer-checked/02:translate-x-0 peer-checked/01:scale-[83.75%] peer-checked/02:scale-100 peer-checked/02:[&>label]:pointer-events-none peer-focus-visible/02:[&_article]:ring peer-focus-visible/02:[&_article]:ring-copy"
+                      class="absolute inset-0 z-20 scale-[67.5%] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] peer-checked/02:relative peer-checked/01:z-40 peer-checked/02:z-50 peer-checked/01:translate-x-7 peer-checked/01:translate-y-7 peer-checked/02:translate-x-0 peer-checked/01:scale-[83.75%] peer-checked/02:scale-100 peer-checked/02:[&>label]:pointer-events-none peer-focus-visible/02:[&_image]:ring peer-focus-visible/02:[&_image]:ring-copy"
                     >
-                      <label class="absolute inset-0" for="article-02"></label>
+                      <label
+                        class="absolute inset-0 cursor-pointer"
+                        for="image-02"
+                      ></label>
                       <img
                         class="mb-0 mb-4 ml-0 inline-flex !h-32 h-24 !w-32 w-24 rounded-2xl border-4 border-solid border-copy object-cover shadow-2xl"
                         :src="settings.subProfileImage.url"
                         :alt="'SubProfileImage'"
                       />
+                    </div>
+                    <div
+                      class="h-6 w-6 scale-x-[-1] transform cursor-pointer text-copy-light sm:text-primary-content"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 122.88 101.8"
+                        fill="currentColor"
+                        @click="toggleActiveImage"
+                      >
+                        <path
+                          d="M13.56,48.8c-.7-10.22-.24-18.51,3.25-24.34s10.13-9.25,21.58-9.25h2v-5h0c0-2,.36-3.21,1.25-3.7s2.14-.09,3.66,1.36L57.26,19.24A3.44,3.44,0,0,1,58.61,22a4,4,0,0,1-1.48,2.52L45.37,35.78c-1.43,1.44-2.63,1.87-3.61,1.38s-1.35-1.69-1.33-3.59h0V27.49c-11.61-.44-14.11,4.35-14.51,10.72-.12,2-.06,4.23,0,6.46,0,1.44.08,2.89.08,4.12A1.18,1.18,0,0,1,24.83,50H14.73a1.17,1.17,0,0,1-1.17-1.17ZM76.42,0h40.7a5.77,5.77,0,0,1,5.76,5.76V37.4a5.74,5.74,0,0,1-1.69,4.07,3.9,3.9,0,0,1-.38.33,5.68,5.68,0,0,1-3.69,1.36H76.42a5.75,5.75,0,0,1-5.75-5.76V5.76A5.73,5.73,0,0,1,72.35,1.7h0A5.78,5.78,0,0,1,76.42,0ZM5.76,58.64h40.7a5.73,5.73,0,0,1,4,1.69h0a5.75,5.75,0,0,1,1.68,4.06V96a5.74,5.74,0,0,1-1.68,4.07,3.9,3.9,0,0,1-.38.33,5.72,5.72,0,0,1-3.69,1.36H5.76A5.77,5.77,0,0,1,0,96V64.4a5.72,5.72,0,0,1,1.7-4.06h0a5.74,5.74,0,0,1,4.07-1.69Zm97.61-3.51c.7,10.23.24,18.52-3.25,24.35S90,88.72,78.54,88.72H76.49v5h0c0,2-.35,3.21-1.24,3.7s-2.14.09-3.66-1.36L59.67,84.69A3.42,3.42,0,0,1,58.32,82a4.06,4.06,0,0,1,1.48-2.53L71.56,68.16c1.43-1.44,2.63-1.88,3.61-1.38s1.35,1.68,1.32,3.59h0v6.08c11.61.44,14.1-4.35,14.5-10.73.13-2,.07-4.22,0-6.46,0-1.43-.08-2.89-.08-4.12A1.17,1.17,0,0,1,92.09,54h10.1a1.18,1.18,0,0,1,1.18,1.17Z"
+                        />
+                      </svg>
                     </div>
                   </div>
                   <div
@@ -194,6 +216,7 @@ export default {
       splitProgress: 0,
       currentSection: null,
       ishigherLg: false,
+      activeImage: 'image-01',
     }
   },
   computed: {
@@ -224,21 +247,6 @@ export default {
           return {}
       }
     },
-    // aboutSlideStyle() {
-    //   return {
-    //     transform: `translateX(${-100 + this.splitProgress * 100}%)`,
-    //   }
-    // },
-    // historySlideStyle() {
-    //   return {
-    //     transform: `translateX(${100 - this.splitProgress * 100}%)`,
-    //   }
-    // },
-    // worksSlideStyle() {
-    //   return {
-    //     transform: `translateX(${-100 + this.splitProgress * 100}%)`,
-    //   }
-    // },
   },
   mounted() {
     // セクションの位置を取得
@@ -261,6 +269,15 @@ export default {
     mediaQuery.removeEventListener('change', this.handleMediaChange)
   },
   methods: {
+    toggleActiveImage() {
+      this.activeImage =
+        this.activeImage === 'image-01' ? 'image-02' : 'image-01'
+
+      const radio = document.getElementById(this.activeImage)
+      if (radio) {
+        radio.checked = true
+      }
+    },
     handleMediaChange(event) {
       this.ishigherLg = event.matches
     },

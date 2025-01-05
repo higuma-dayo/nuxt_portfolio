@@ -3,6 +3,7 @@
     class="relative flex h-screen w-auto flex-col items-center justify-center overflow-hidden"
     ref="canvasWrapper"
   >
+    <Loading ref="loading"/>
     <canvas id="canvas" class="h-full w-full"></canvas>
   </div>
 </template>
@@ -11,10 +12,14 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
+import Loading from './Loading.vue'
 const isElement = (x) => x instanceof Element
 
 export default {
   name: 'GltfViewer',
+  components: {
+    Loading,
+  },
   data() {
     return {
       renderer: null,
@@ -101,8 +106,14 @@ export default {
       // 照明設定
       this.createLight()
 
-      // モデルロード
-      await this.loadGLTF()
+      try {
+        // モデルが読み込まれるまでローディング中にする
+        await this.showLoading(async () => {
+          await this.loadGLTF()
+        })
+      } catch (error) {
+        console.error('Error loading GLTF:', error)
+      }
 
       // 初期表示時でも再生位置を更新
       this.onScroll()
@@ -188,9 +199,22 @@ export default {
             }
           },
           undefined,
-          reject,
+          (error) => {
+            reject(error)
+          }
         )
       })
+    },
+    // ローディング画面
+    async showLoading(task) {
+      const loading = this.$refs.loading
+      if (loading) loading.start()
+
+      try {
+        await task()
+      } finally {
+        if (loading) loading.finish()
+      }
     },
     // 照明設定
     createLight() {

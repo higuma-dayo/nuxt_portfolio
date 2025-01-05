@@ -13,7 +13,7 @@
       </button>
 
       <div class="rounded-2xl bg-border px-12 py-16">
-        <h2 class="text-lg font-bold sm:text-3xl">{{ historyData.title }}</h2>
+        <h2 class="text-base font-bold sm:text-3xl">{{ historyData.title }}</h2>
         <div class="mt-2 flex flex-row">
           <span class="whitespace-nowrap text-sm">
             <time
@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <div class="space-y-12 py-16 pl-8 pr-12">
+      <div class="space-y-12 py-16 pl-8 pr-12 max-sm:pl-1 max-sm:pr-3">
         <div class="flex">
           <div class="flex-shrink-0">
             <div class="flex h-12 w-12 items-center justify-center rounded-md">
@@ -58,14 +58,14 @@
             </div>
           </div>
           <div class="ml-4">
-            <h4 class="text-lg font-medium">作業内容</h4>
+            <h4 class="text-lg font-medium max-sm:text-sm">作業内容</h4>
             <div class="mt-2">
               <li
                 v-for="work in historyData.works"
                 :key="work"
-                class="my-1 mr-2 inline-block -skew-x-[25deg] rounded-md bg-primary px-3 py-1 text-left text-sm text-foreground shadow-sm"
+                class="my-1 mr-2 inline-block -skew-x-[25deg] rounded-md bg-primary px-3 py-1 text-left text-sm text-foreground shadow-sm max-sm:text-xs"
               >
-                <div class="skew-x-[25deg]">
+                <div class="skew-x-[25deg] max-sm:text-xs">
                   <span>{{ work }}</span>
                 </div>
               </li>
@@ -91,9 +91,9 @@
             </div>
           </div>
           <div class="ml-4">
-            <h4 class="text-lg font-medium">業務内容</h4>
+            <h4 class="text-lg font-medium max-sm:text-sm">業務内容</h4>
             <span
-              class="mt-2 whitespace-pre-line"
+              class="mt-2 whitespace-pre-line max-sm:text-xs"
               v-html="historyData.description"
             ></span>
           </div>
@@ -119,9 +119,9 @@
             </div>
           </div>
           <div class="ml-4">
-            <h4 class="text-lg font-medium">備考</h4>
+            <h4 class="text-lg font-medium max-sm:text-sm">備考</h4>
             <span
-              class="mt-2 whitespace-pre-line"
+              class="mt-2 whitespace-pre-line max-sm:text-xs"
               v-html="historyData.remarks"
             ></span>
           </div>
@@ -147,9 +147,11 @@
             </div>
           </div>
           <div class="ml-4">
-            <h4 class="text-lg font-medium">使用言語/ツール等</h4>
+            <h4 class="text-lg font-medium max-sm:text-sm">
+              使用言語/ツール等
+            </h4>
             <span
-              class="mt-2 whitespace-pre-line"
+              class="mt-2 whitespace-pre-line max-sm:text-xs"
               v-html="historyData.tools"
             ></span>
           </div>
@@ -175,8 +177,8 @@
             </div>
           </div>
           <div class="ml-4">
-            <h4 class="text-lg font-medium">URL</h4>
-            <p class="mt-2">{{ historyData.url }}</p>
+            <h4 class="text-lg font-medium max-sm:text-sm">URL</h4>
+            <p class="mt-2 max-sm:text-xs">{{ historyData.url }}</p>
           </div>
         </div>
       </div>

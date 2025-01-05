@@ -44,18 +44,7 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/date-fns',
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/color-mode',
   ],
-
-  colorMode: {
-    preference: 'system', // デフォルトのカラーモード
-    fallback: 'light', // システム設定がない場合のフォールバック
-    hid: 'nuxt-color-mode-script',
-    globalName: '$colorMode',
-    componentName: 'ColorScheme',
-    classPrefix: '',
-    classSuffix: '-mode',
-  },
 
   modules: ['nuxt-microcms-module', 'nuxt-webfontloader'],
 
