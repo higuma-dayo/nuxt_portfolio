@@ -56,7 +56,7 @@
             <img
               :src="i.url"
               :alt="`${workData.title}(${index})`"
-              class="h-[300px] h-auto w-full object-contain"
+              class="h-[300px] w-full object-contain"
             />
           </figure>
           <div
