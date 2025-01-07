@@ -109,6 +109,7 @@
                         <a
                           href="https://github.com/higuma-dayo"
                           target="_blank"
+                          rel="noopener noreferrer"
                           aria-label="GitHub"
                         >
                           <svg
@@ -129,6 +130,7 @@
                         <a
                           href="https://x.com/higuma_dayo"
                           target="_blank"
+                          rel="noopener noreferrer"
                           aria-label="X"
                         >
                           <svg
