@@ -32,8 +32,8 @@ export default {
       // isScrollControlled: false,
       mouseX: 0,
       mouseY: 0,
-      touchStartX: null,
-      touchStartY: null,
+      // touchStartX: null,
+      // touchStartY: null,
     }
   },
   computed: {
@@ -73,9 +73,9 @@ export default {
     window.addEventListener('mousemove', this.onMouseMove);
 
     // スマホ用
-    window.addEventListener('touchstart', this.onTouchStart);
-    window.addEventListener('touchmove', this.onTouchMove);
-    window.addEventListener('touchend', this.onTouchEnd);
+    // window.addEventListener('touchstart', this.onTouchStart);
+    // window.addEventListener('touchmove', this.onTouchMove);
+    // window.addEventListener('touchend', this.onTouchEnd);
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize)
@@ -95,9 +95,9 @@ export default {
     window.removeEventListener('mousemove', this.onMouseMove);
 
     // スマホ用
-    window.removeEventListener('touchstart', this.onTouchStart);
-    window.removeEventListener('touchmove', this.onTouchMove);
-    window.removeEventListener('touchend', this.onTouchEnd);
+    // window.removeEventListener('touchstart', this.onTouchStart);
+    // window.removeEventListener('touchmove', this.onTouchMove);
+    // window.removeEventListener('touchend', this.onTouchEnd);
   },
   methods: {
     isMobile() {
@@ -139,38 +139,39 @@ export default {
       // 次のフレームを要求
       this.rafId = requestAnimationFrame(this.updateCamera);
     },
-    onTouchStart(event) {
-      // タッチ開始時の処理
-      if (event.touches.length > 0) {
-        this.touchStartX = event.touches[0].clientX;
-        this.touchStartY = event.touches[0].clientY;
-      }
-    },
-    onTouchMove(event) {
-      // タッチ移動時の処理
-      if (event.touches.length > 0) {
-        const touchX = event.touches[0].clientX;
-        const touchY = event.touches[0].clientY;
+    // スマホ用(重くなったので一旦保留)
+    // onTouchStart(event) {
+    //   // タッチ開始時の処理
+    //   if (event.touches.length > 0) {
+    //     this.touchStartX = event.touches[0].clientX;
+    //     this.touchStartY = event.touches[0].clientY;
+    //   }
+    // },
+    // onTouchMove(event) {
+    //   // タッチ移動時の処理
+    //   if (event.touches.length > 0) {
+    //     const touchX = event.touches[0].clientX;
+    //     const touchY = event.touches[0].clientY;
 
-        // タッチ開始位置からの移動量を計算
-        const deltaX = touchX - this.touchStartX;
-        const deltaY = touchY - this.touchStartY;
+    //     // タッチ開始位置からの移動量を計算
+    //     const deltaX = touchX - this.touchStartX;
+    //     const deltaY = touchY - this.touchStartY;
 
-        // マウス位置を-1から1の範囲に正規化
-        this.mouseX = (deltaX / window.innerWidth) * 2 - 1;
-        this.mouseY = -(deltaY / window.innerHeight) * 2 + 1;
+    //     // マウス位置を-1から1の範囲に正規化
+    //     this.mouseX = (deltaX / window.innerWidth) * 2 - 1;
+    //     this.mouseY = -(deltaY / window.innerHeight) * 2 + 1;
 
-        // 目標位置を設定
-        this.targetX = 1.95 + this.mouseX * 0.25;
-        this.targetY = 0.26 + this.mouseY * 0.24;
-      }
-    },
-    onTouchEnd(event) {
-      // タッチ終了時の処理
-      this.touchStartX = null;
-      this.touchStartY = null;
-    },
-    // アニメーションループを開始
+    //     // 目標位置を設定
+    //     this.targetX = 1.95 + this.mouseX * 0.25;
+    //     this.targetY = 0.26 + this.mouseY * 0.24;
+    //   }
+    // },
+    // onTouchEnd(event) {
+    //   // タッチ終了時の処理
+    //   this.touchStartX = null;
+    //   this.touchStartY = null;
+    // },
+    // アニメーションループを開始(重くなったので一旦保留)
     // startAnimationLoop() {
     //   const animate = () => {
     //     this.animationFrameId = requestAnimationFrame(animate)
