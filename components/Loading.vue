@@ -182,7 +182,7 @@ export default {
   .num_3 {transform: rotate(88deg); top:3px;} 
   .num_4 {transform: rotate(58deg); top:5px; left:-1px;} 
   .num_5 {transform: rotate(28deg); top:5px; left:-3px} 
-  .num_6 {transform: rotate(-2deg); top:7px; left:-4px} 
+  .num_6 {transform: rotate(-2deg); top:7px; left:-5px} 
   .num_7 {transform: rotate(-32deg); top:10px; left:-4px;} 
   .num_8 {transform: rotate(-62deg);top:13px; left:-3px;} 
   .num_9 {transform: rotate(-92deg);top:13px;} 
@@ -197,7 +197,7 @@ export default {
     top: 50%;
     width: 0;
     transform-origin: 50% 100%;
-    margin: -65px -2px 0; 
+    margin: -65px -2px 0;
     padding: 65px 2px 0; 
     z-index:2;
     border-radius: 50% 50% 0 0;    

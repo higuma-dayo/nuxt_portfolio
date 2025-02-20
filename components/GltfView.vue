@@ -30,8 +30,8 @@ export default {
       gltfUrl: './models/transformer.glb',
       // animationFrameId: null,
       // isScrollControlled: false,
-      mouseX: 0,
-      mouseY: 0,
+      // mouseX: 0,
+      // mouseY: 0,
       // touchStartX: null,
       // touchStartY: null,
     }
@@ -62,15 +62,15 @@ export default {
     window.addEventListener('scroll', this.onScroll)
 
     // マウス位置の初期値と目標値
-    this.currentX = this.camera?.position.x || 1.95;
-    this.currentY = this.camera?.position.y || 0.26;
-    this.targetX = this.currentX;
-    this.targetY = this.currentY;
+    // this.currentX = this.camera?.position.x || 1.95;
+    // this.currentY = this.camera?.position.y || 0.26;
+    // this.targetX = this.currentX;
+    // this.targetY = this.currentY;
     
     // 滑らかな動きを実現するためのRAF
-    this.rafId = requestAnimationFrame(this.updateCamera);
+    // this.rafId = requestAnimationFrame(this.updateCamera);
     
-    window.addEventListener('mousemove', this.onMouseMove);
+    // window.addEventListener('mousemove', this.onMouseMove);
 
     // スマホ用
     // window.addEventListener('touchstart', this.onTouchStart);
@@ -88,11 +88,11 @@ export default {
     // this.stopAnimationLoop() // コンポーネント破棄時にアニメーションループを停止
 
     // RAFをキャンセル
-    if (this.rafId) {
-      cancelAnimationFrame(this.rafId);
-    }
+    // if (this.rafId) {
+    //   cancelAnimationFrame(this.rafId);
+    // }
 
-    window.removeEventListener('mousemove', this.onMouseMove);
+    // window.removeEventListener('mousemove', this.onMouseMove);
 
     // スマホ用
     // window.removeEventListener('touchstart', this.onTouchStart);
@@ -106,39 +106,40 @@ export default {
     isTablet() {
       return window.innerWidth <= 1023
     },
-    onMouseMove(event) {
-      // マウス位置を-1から1の範囲に正規化
-      this.mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-      this.mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    // onMouseMove(event) {
+    //   // マウス位置を-1から1の範囲に正規化
+    //   this.mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+    //   this.mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
       
-      // 目標位置を設定
-      this.targetX = 1.95 + this.mouseX * 0.25;
-      this.targetY = 0.26 + this.mouseY * 0.24;
-    },
-    updateCamera() {
-      if (this.camera) {
-        // 線形補間で現在位置を更新
-        const easing = 0.08;
-        this.currentX += (this.targetX - this.currentX) * easing;
-        this.currentY += (this.targetY - this.currentY) * easing;
+    //   // 目標位置を設定
+    //   this.targetX = 1.95 + this.mouseX * 0.25;
+    //   this.targetY = 0.26 + this.mouseY * 0.24;
+    // },
+    // マウスでグリグリ(重くなったので一旦保留)
+    // updateCamera() {
+    //   if (this.camera) {
+    //     // 線形補間で現在位置を更新
+    //     const easing = 0.08;
+    //     this.currentX += (this.targetX - this.currentX) * easing;
+    //     this.currentY += (this.targetY - this.currentY) * easing;
         
-        // 範囲制限
-        this.currentX = Math.min(Math.max(this.currentX, 1.7), 2.2);
-        this.currentY = Math.min(Math.max(this.currentY, 0.02), 0.5);
+    //     // 範囲制限
+    //     this.currentX = Math.min(Math.max(this.currentX, 1.7), 2.2);
+    //     this.currentY = Math.min(Math.max(this.currentY, 0.02), 0.5);
         
-        // カメラ位置を更新
-        this.camera.position.x = this.currentX;
-        this.camera.position.y = this.currentY;
+    //     // カメラ位置を更新
+    //     this.camera.position.x = this.currentX;
+    //     this.camera.position.y = this.currentY;
         
-        // レンダリング
-        if (this.renderer && this.scene) {
-          this.renderer.render(this.scene, this.camera);
-        }
-      }
+    //     // レンダリング
+    //     if (this.renderer && this.scene) {
+    //       this.renderer.render(this.scene, this.camera);
+    //     }
+    //   }
       
-      // 次のフレームを要求
-      this.rafId = requestAnimationFrame(this.updateCamera);
-    },
+    //   // 次のフレームを要求
+    //   this.rafId = requestAnimationFrame(this.updateCamera);
+    // },
     // スマホ用(重くなったので一旦保留)
     // onTouchStart(event) {
     //   // タッチ開始時の処理
