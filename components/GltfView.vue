@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative flex h-screen w-auto flex-col items-center justify-center overflow-hidden"
+    class="relative flex h-screen w-auto flex-col items-center justify-center"
     ref="canvasWrapper"
   >
     <Loading ref="loading"/>
@@ -27,7 +27,13 @@ export default {
       camera: null,
       mixer: null,
       animations: [],
-      gltfUrl: './models/iphone.glb',
+      gltfUrl: './models/transformer.glb',
+      // animationFrameId: null,
+      // isScrollControlled: false,
+      mouseX: 0,
+      mouseY: 0,
+      touchStartX: null,
+      touchStartY: null,
     }
   },
   computed: {
@@ -45,6 +51,8 @@ export default {
         if (this.renderer && this.scene && this.camera) {
           this.renderer.render(this.scene, this.camera)
         }
+
+        // this.startAnimationLoop() // アニメーションループを開始
       })
       .catch((error) => {
         console.error('Initialization failed:', error)
@@ -52,6 +60,22 @@ export default {
 
     window.addEventListener('resize', this.onResize)
     window.addEventListener('scroll', this.onScroll)
+
+    // マウス位置の初期値と目標値
+    this.currentX = this.camera?.position.x || 1.95;
+    this.currentY = this.camera?.position.y || 0.26;
+    this.targetX = this.currentX;
+    this.targetY = this.currentY;
+    
+    // 滑らかな動きを実現するためのRAF
+    this.rafId = requestAnimationFrame(this.updateCamera);
+    
+    window.addEventListener('mousemove', this.onMouseMove);
+
+    // スマホ用
+    window.addEventListener('touchstart', this.onTouchStart);
+    window.addEventListener('touchmove', this.onTouchMove);
+    window.addEventListener('touchend', this.onTouchEnd);
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize)
@@ -60,8 +84,128 @@ export default {
     if (this.renderer) {
       this.renderer.dispose()
     }
+
+    // this.stopAnimationLoop() // コンポーネント破棄時にアニメーションループを停止
+
+    // RAFをキャンセル
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+    }
+
+    window.removeEventListener('mousemove', this.onMouseMove);
+
+    // スマホ用
+    window.removeEventListener('touchstart', this.onTouchStart);
+    window.removeEventListener('touchmove', this.onTouchMove);
+    window.removeEventListener('touchend', this.onTouchEnd);
   },
   methods: {
+    isMobile() {
+      return window.innerWidth <= 640
+    },
+    isTablet() {
+      return window.innerWidth <= 1023
+    },
+    onMouseMove(event) {
+      // マウス位置を-1から1の範囲に正規化
+      this.mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+      this.mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+      
+      // 目標位置を設定
+      this.targetX = 1.95 + this.mouseX * 0.25;
+      this.targetY = 0.26 + this.mouseY * 0.24;
+    },
+    updateCamera() {
+      if (this.camera) {
+        // 線形補間で現在位置を更新
+        const easing = 0.08;
+        this.currentX += (this.targetX - this.currentX) * easing;
+        this.currentY += (this.targetY - this.currentY) * easing;
+        
+        // 範囲制限
+        this.currentX = Math.min(Math.max(this.currentX, 1.7), 2.2);
+        this.currentY = Math.min(Math.max(this.currentY, 0.02), 0.5);
+        
+        // カメラ位置を更新
+        this.camera.position.x = this.currentX;
+        this.camera.position.y = this.currentY;
+        
+        // レンダリング
+        if (this.renderer && this.scene) {
+          this.renderer.render(this.scene, this.camera);
+        }
+      }
+      
+      // 次のフレームを要求
+      this.rafId = requestAnimationFrame(this.updateCamera);
+    },
+    onTouchStart(event) {
+      // タッチ開始時の処理
+      if (event.touches.length > 0) {
+        this.touchStartX = event.touches[0].clientX;
+        this.touchStartY = event.touches[0].clientY;
+      }
+    },
+    onTouchMove(event) {
+      // タッチ移動時の処理
+      if (event.touches.length > 0) {
+        const touchX = event.touches[0].clientX;
+        const touchY = event.touches[0].clientY;
+
+        // タッチ開始位置からの移動量を計算
+        const deltaX = touchX - this.touchStartX;
+        const deltaY = touchY - this.touchStartY;
+
+        // マウス位置を-1から1の範囲に正規化
+        this.mouseX = (deltaX / window.innerWidth) * 2 - 1;
+        this.mouseY = -(deltaY / window.innerHeight) * 2 + 1;
+
+        // 目標位置を設定
+        this.targetX = 1.95 + this.mouseX * 0.25;
+        this.targetY = 0.26 + this.mouseY * 0.24;
+      }
+    },
+    onTouchEnd(event) {
+      // タッチ終了時の処理
+      this.touchStartX = null;
+      this.touchStartY = null;
+    },
+    // アニメーションループを開始
+    // startAnimationLoop() {
+    //   const animate = () => {
+    //     this.animationFrameId = requestAnimationFrame(animate)
+
+    //     if (this.mixer) {
+    //       const deltaTime = this.clock?.getDelta() || 0 // 前回のフレームからの経過時間を取得
+    //       this.mixer.update(deltaTime) // アニメーションを更新
+
+    //       // 2.35秒を超えたら 0 秒に戻す
+    //       // isScrollControlled = trueになったらループ再生を抜ける
+    //       const action = this.mixer.clipAction(this.animations[0])
+    //       if (!this.isScrollControlled && action) {
+    //         if (action.time > 2.35) {
+    //           action.time = 0
+    //           this.mixer.setTime(0) // Mixer全体の時間もリセット
+    //         }
+    //       }
+    //     }
+
+    //     if (this.renderer && this.scene && this.camera) {
+    //       this.renderer.render(this.scene, this.camera)
+    //     }
+    //   }
+
+    //   this.clock = new THREE.Clock() // 時間計測用のクロックを初期化
+    //   animate()
+    // },
+
+    // アニメーションループを停止
+    // stopAnimationLoop() {
+    //   if (this.animationFrameId) {
+    //     cancelAnimationFrame(this.animationFrameId)
+    //     this.animationFrameId = null
+    //   }
+    // },
     // 初期化
     async init() {
       if (!this.isBrowser) return
@@ -76,8 +220,13 @@ export default {
         throw new Error('Canvas wrapper not found')
       }
 
-      const width = canvasWrapper.clientWidth
-      const height = canvasWrapper.clientHeight
+      const width = this.isTablet()
+      ? canvasWrapper.clientWidth
+      : canvasWrapper.clientWidth * 2
+
+    const height = this.isTablet()
+      ? canvasWrapper.clientHeight
+      : canvasWrapper.clientHeight * 2
 
       // 初期設定
       this.scene = new THREE.Scene()
@@ -105,6 +254,9 @@ export default {
 
       // 照明設定
       this.createLight()
+
+      // 霧
+      this.scene.fog = new THREE.Fog( 0xcccccc, 10, 45 );
 
       try {
         // モデルが読み込まれるまでローディング中にする
@@ -161,6 +313,9 @@ export default {
               // PerspectiveCameraの場合
               if (loadedCamera instanceof THREE.PerspectiveCamera) {
                 this.camera = loadedCamera
+                this.camera.fov = this.isTablet()
+                ? this.isMobile() ? this.camera.fov * 3 : this.camera.fov * 2 // スマホの場合、画角を広くする
+                : this.camera.fov * 2
               }
               // 他のカメラタイプの場合、PerspectiveCameraに変換
               else {
@@ -238,8 +393,13 @@ export default {
     onResize() {
       if (!this.renderer || !this.camera || !this.isBrowser) return
 
-      const width = window.innerWidth
-      const height = window.innerHeight
+      const width = this.isTablet()
+      ? window.innerWidth
+      : window.innerWidth * 2
+
+    const height = this.isTablet()
+      ? window.innerHeight
+      : window.innerHeight * 2
 
       // WebGLRendererが描画するキャンバスのサイズをウィンドウの幅と高さに合わせる
       this.renderer.setSize(width, height)
@@ -263,21 +423,47 @@ export default {
         !this.scene ||
         !this.camera ||
         !this.isBrowser
-      )
+      ) {
         return
+      }
       const scrollY = window.scrollY
       const maxScroll = document.body.scrollHeight - window.innerHeight
       // スクロール位置に基づいて再生時間を計算（アニメーション全体の時間をスクロールにマッピング）
       const scrollProgress = Math.min(scrollY / maxScroll, 1) // 0から1の範囲に正規化
       const animationDuration = this.animations[0]?.duration ?? 0 // アニメーションの総時間
-      const newTime = scrollProgress * animationDuration // アニメーションの再生位置
+      let rawTime = scrollProgress * animationDuration // アニメーションの再生位置
       // アニメーションの再生位置を設定
       const action = this.mixer.clipAction(this.animations[0])
-      if (action) {
+      if (!action) return
+
+      // if (scrollProgress <= 0.1) {
+      //   this.isScrollControlled = false
+      //   // スクロール量が0.1以下の時に無限ループ再生
+      //   action.setLoop(THREE.LoopRepeat, Infinity)
+      //   action.paused = false;
+      // } else {
+        // this.isScrollControlled = true
+        // 通常のスクロール連動再生
+        action.setLoop(THREE.LoopOnce, 0)
         action.paused = true // アニメーションを停止した状態で再生位置を変更
-        action.time = newTime // 再生時間を設定
+
+        // スキップ範囲の処理
+        const skipRanges = [
+          { start: 4.08, end: 4.13 },
+          { start: 4.50, end: 4.55 }
+        ]
+
+        for (const range of skipRanges) {
+          if (rawTime >= range.start && rawTime < range.end) {
+            rawTime = range.end
+            break
+          }
+        }
+
+        action.time = rawTime // 再生時間を設定
         this.mixer.update(0) // 更新
-      }
+      // }
+
       // レンダリング
       if (this.renderer && this.scene && this.camera) {
         this.renderer.render(this.scene, this.camera)

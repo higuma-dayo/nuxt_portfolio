@@ -227,23 +227,19 @@ export default {
       switch (this.currentSection) {
         case 'model-about':
           return {
-            margin: `0 0 0 ${50 * this.splitProgress}%`,
-            width: `${50 + 50 * (1 - this.splitProgress)}%`,
+            margin: `0 0 0 ${25 * this.splitProgress}%`,
           }
         case 'model-history':
           return {
-            margin: `0 0 0 ${50 * (1 - this.splitProgress)}%`,
-            width: `50%`,
+            margin: `0 0 0 ${25 * (1 - this.splitProgress * 2)}%`,
           }
         case 'model-works':
           return {
-            margin: `0 0 0 ${50 * this.splitProgress}%`,
-            width: `50%`,
+            margin: `0 0 0 ${-25 * (1 - this.splitProgress * 2)}%`,
           }
         case 'model-bottom':
           return {
-            margin: `0 0 0 ${50 * (1 - this.splitProgress)}%`,
-            width: `${50 + 50 * this.splitProgress}%`,
+            margin: `0 0 0 ${25 * (1 - this.splitProgress)}%`,
           }
         default:
           return {}
