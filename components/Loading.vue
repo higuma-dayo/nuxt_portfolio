@@ -7,24 +7,29 @@
       <div class="ii">
         <div><b><span class="num_1">0</span></b></div>
         <div><b></b></div>
-        <div><b><span class="num_2">1</span></b></div>
+        <div><b><span class="num_2">10</span></b></div>
         <div><b></b></div>
-        <div><b><span class="num_3">2</span></b></div>
+        <div><b><span class="num_3">20</span></b></div>
         <div><b></b></div>
-        <div><b><span class="num_4">3</span></b></div>
+        <div><b><span class="num_4">30</span></b></div>
         <div><b></b></div>
-        <div><b><span class="num_5">4</span></b></div>
+        <div><b><span class="num_5">40</span></b></div>
         <div><b></b></div>
-        <div><b><span class="num_6">5</span></b></div>
+        <div><b><span class="num_6">50</span></b></div>
         <div><b></b></div>
-        <div><b><span class="num_7">6</span></b></div>
+        <div><b><span class="num_7">60</span></b></div>
         <div><b></b></div>
-        <div><b><span class="num_8">7</span></b></div>
+        <div><b><span class="num_8">70</span></b></div>
         <div><b></b></div>
-        <div><b><span class="num_9">8</span></b></div>
+        <div><b><span class="num_9">80</span></b></div>
+        <div><b></b></div>
+        <div><b><span class="num_10">90</span></b></div>
+        <div><b></b></div>
+        <div><b><span class="num_11">100</span></b></div>
       </div> 
       <div class="line"></div>
-      <div class="pin"><div class="inner"></div></div> 
+      <div class="pin"><div class="inner"></div></div>
+      <p class="percent">%</p>
     </div>
   </div>
 </template>
@@ -35,15 +40,30 @@ export default {
   data() {
     return {
       loading: false,
+      progress: 0
     }
   },
   methods: {
     start() {
       this.loading = true
+      this.progress = 0
+    },
+    updateProgress(value) {
+      this.progress = Math.min(Math.round(value * 100), 100)
+      // 進捗に合わせてlineの回転角度を更新
+      const lineElement = document.querySelector('.line')
+      if (lineElement) {
+        // -148度（0%）から297度（100%）の間で変化
+        const rotationDegree = -148 + (this.progress * 2.97)
+        lineElement.style.transform = `rotate(${rotationDegree}deg)`
+      }
     },
     finish() {
-      this.loading = false
-    },
+      this.progress = 100
+      setTimeout(() => {
+        this.loading = false
+      }, 500) // 完了アニメーションを見せるための遅延
+    }
   },
 }
 </script>
@@ -84,55 +104,67 @@ export default {
     margin: 0 -5px 0;
   }
   .ii div:nth-child(1) {
-    transform: rotate(240deg);
+    transform: rotate(212deg);
   }
   .ii div:nth-child(2) {
-    transform: rotate(255deg);
+    transform: rotate(227deg);
   }
   .ii div:nth-child(3) {
-    transform: rotate(270deg);
+    transform: rotate(242deg);
   }
   .ii div:nth-child(4) {
-    transform: rotate(285deg);
+    transform: rotate(257deg);
   }
   .ii div:nth-child(5) {
-    transform: rotate(300deg);
+    transform: rotate(272deg);
   }
   .ii div:nth-child(6) {
-    transform: rotate(315deg);
+    transform: rotate(287deg);
   }
   .ii div:nth-child(7) {
-    transform: rotate(330deg);
+    transform: rotate(302deg);
   }
   .ii div:nth-child(8) {
-    transform: rotate(345deg);
+    transform: rotate(317deg);
   }
   .ii div:nth-child(9) {
-    transform: rotate(0deg);/*---*/
+    transform: rotate(-28deg);/*---*/
   }
   .ii div:nth-child(10) {
-    transform: rotate(15deg);
+    transform: rotate(-13deg);
   }
   .ii div:nth-child(11) {
-    transform: rotate(30deg);
+    transform: rotate(2deg);
   }
   .ii div:nth-child(12) {
-    transform: rotate(45deg);
+    transform: rotate(17deg);
   }
   .ii div:nth-child(13) {
-    transform: rotate(60deg);
+    transform: rotate(32deg);
   }
   .ii div:nth-child(14) {
-    transform: rotate(75deg);
+    transform: rotate(47deg);
   }
   .ii div:nth-child(15) {
-    transform: rotate(90deg);
+    transform: rotate(62deg);
   }
   .ii div:nth-child(16) {
-    transform: rotate(105deg);
+    transform: rotate(77deg);
   }
   .ii div:nth-child(17) {
-    transform: rotate(120deg);
+    transform: rotate(92deg);
+  }
+  .ii div:nth-child(18) {
+    transform: rotate(107deg);
+  }
+  .ii div:nth-child(19) {
+    transform: rotate(122deg);
+  }
+  .ii div:nth-child(20) {
+    transform: rotate(137deg);
+  }
+  .ii div:nth-child(21) {
+    transform: rotate(152deg);
   }
   [class^="num_"] {
     color:#d8fa00;
@@ -145,15 +177,17 @@ export default {
     font-family: 'Open Sans', sans-serif;
     text-decoration:none;
   }
-  .num_1 {transform: rotate(120deg); top:5px;} 
-  .num_2 {transform: rotate(90deg); top:3px; left:2px} 
-  .num_3 {transform: rotate(60deg); top:5px;} 
-  .num_4 {transform: rotate(30deg); top:6px;} 
-  .num_5 {transform: rotate(0deg);  top:7px;left:-2px} 
-  .num_6 {transform: rotate(330deg); top:8px;left:-3px} 
-  .num_7 {transform: rotate(300deg); top:8px;left:-2px;} 
-  .num_8 {transform: rotate(270deg);top:7px;} 
-  .num_9 {transform: rotate(240deg);top:7px;left:2px} 
+  .num_1 {transform: rotate(148deg); top:6px;} 
+  .num_2 {transform: rotate(118deg); top:3px;} 
+  .num_3 {transform: rotate(88deg); top:3px;} 
+  .num_4 {transform: rotate(58deg); top:5px; left:-1px;} 
+  .num_5 {transform: rotate(28deg); top:5px; left:-3px} 
+  .num_6 {transform: rotate(-2deg); top:7px; left:-4px} 
+  .num_7 {transform: rotate(-32deg); top:10px; left:-4px;} 
+  .num_8 {transform: rotate(-62deg);top:13px; left:-3px;} 
+  .num_9 {transform: rotate(-92deg);top:13px;} 
+  .num_10 {transform: rotate(-122deg);top:12px; left:4px} 
+  .num_11 {transform: rotate(-152deg);top:13px; left:14px} 
   .line {
     background: #d8fa00;
     background-image: linear-gradient(to bottom, #d8fa00, #343536);
@@ -167,10 +201,8 @@ export default {
     padding: 65px 2px 0; 
     z-index:2;
     border-radius: 50% 50% 0 0;    
-    transform:rotate(-95deg);
-    animation: pendulum;
-    animation-iteration-count: infinite;
-    animation-duration: 4s;
+    transform: rotate(-148deg); /* 初期位置 */
+    transition: transform 0.3s ease; /* スムーズな動きのためのトランジション */
   }
   .pin {
     width: 15px; 
@@ -190,36 +222,17 @@ export default {
     border-radius: 100%;
     position: relative;
   }
-  @keyframes pendulum {
-    10% {
-      transform:rotate(100deg);
-    }
-    11% {
-      transform:rotate(98deg);
-    }
-    12% {
-      transform:rotate(96deg);
-    }
-    13% {
-      transform:rotate(98deg);
-    }
-    14% {
-      transform:rotate(96deg);
-    }
-    15% {
-      transform:rotate(98deg);
-    }
-    16% {
-      transform:rotate(96deg);
-    }
-    17% {
-      transform:rotate(98deg);
-    }
-    18% {
-      transform:rotate(96deg);
-    }
-    19% {
-      transform:rotate(98deg);
-    }
+  .percent {
+    font-size: 12px;
+    font-weight: bolder;
+    font-family: 'Open Sans', sans-serif;
+    width: 20px; 
+    height: 20px; 
+    left:50%;
+    top:50%;
+    margin: -38px 0 0 -7px; 
+    color: #d8fa00;
+    position: absolute;
+    z-index: 5;
   }
 </style>

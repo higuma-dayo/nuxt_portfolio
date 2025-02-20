@@ -287,6 +287,9 @@ export default {
 
         loader.setDRACOLoader(dracoLoader)
 
+        // 進捗コールバックを追加
+        const loading = this.$refs.loading
+
         loader.load(
           this.gltfUrl,
           (gltf) => {
@@ -354,7 +357,13 @@ export default {
               resolve()
             }
           },
-          undefined,
+          // 進捗コールバックを追加
+          (xhr) => {
+            if (loading && xhr.lengthComputable) {
+              const progressRatio = xhr.loaded / xhr.total
+              loading.updateProgress(progressRatio)
+            }
+          },
           (error) => {
             reject(error)
           }
