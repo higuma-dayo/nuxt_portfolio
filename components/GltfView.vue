@@ -27,6 +27,7 @@ export default {
       camera: null,
       mixer: null,
       animations: [],
+      isFast: false,
       gltfUrl: './models/transformer.glb',
       // animationFrameId: null,
       // isScrollControlled: false,
@@ -61,6 +62,11 @@ export default {
     window.addEventListener('resize', this.onResize)
     window.addEventListener('scroll', this.onScroll)
 
+    this.$nuxt.$on('TOGGLE_FAST_MODE', (_) => {
+      this.isFast = !this.isFast;
+      this.toggleShowEnvironment();
+    })
+
     // マウス位置の初期値と目標値
     // this.currentX = this.camera?.position.x || 1.95;
     // this.currentY = this.camera?.position.y || 0.26;
@@ -81,9 +87,7 @@ export default {
     window.removeEventListener('resize', this.onResize)
     window.removeEventListener('scroll', this.onScroll)
 
-    if (this.renderer) {
-      this.renderer.dispose()
-    }
+    this.$nuxt.$off('TOGGLE_FAST_MODE')
 
     // this.stopAnimationLoop() // コンポーネント破棄時にアニメーションループを停止
 
@@ -91,6 +95,8 @@ export default {
     // if (this.rafId) {
     //   cancelAnimationFrame(this.rafId);
     // }
+
+    this.cleanup();
 
     // window.removeEventListener('mousemove', this.onMouseMove);
 
@@ -105,6 +111,55 @@ export default {
     },
     isTablet() {
       return window.innerWidth <= 1023
+    },
+    cleanup() {
+      // シーンのクリーンアップ
+      if (this.scene) {
+        this.scene.traverse((obj) => {
+          if (obj.isMesh) {
+            if (obj.geometry) {
+              obj.geometry.dispose()
+            }
+            if (obj.material) {
+              if (Array.isArray(obj.material)) {
+                obj.material.forEach(material => {
+                  Object.keys(material).forEach(prop => {
+                    if (material[prop] && material[prop].dispose) {
+                      material[prop].dispose()
+                    }
+                  })
+                  material.dispose()
+                })
+              } else {
+                Object.keys(obj.material).forEach(prop => {
+                  if (obj.material[prop] && obj.material[prop].dispose) {
+                    obj.material[prop].dispose()
+                  }
+                })
+                obj.material.dispose()
+              }
+            }
+          }
+        })
+        this.scene.clear()
+      }
+
+      // その他のリソースのクリーンアップ
+      if (this.renderer) {
+        this.renderer.dispose()
+        this.renderer.forceContextLoss()
+        this.renderer.domElement = null
+        this.renderer = null
+      }
+
+      if (this.mixer) {
+        this.mixer.stopAllAction()
+        this.mixer.uncacheRoot(this.scene)
+        this.mixer = null
+      }
+
+      this.camera = null
+      this.animations = []
     },
     // onMouseMove(event) {
     //   // マウス位置を-1から1の範囲に正規化
@@ -370,6 +425,25 @@ export default {
           }
         )
       })
+    },
+    toggleShowEnvironment() {
+      if (this.scene) {
+        this.scene.traverse((obj) => {
+          // 環境オブジェクトの表示非表示を切り替える
+          const hideKeywords = ['building', 'Street', 'fog', 'road'];
+          let parent = obj;
+          while (parent) {
+            if (hideKeywords.some(keyword => parent.name?.includes(keyword))) {
+              obj.visible = !this.isFast;
+              break;
+            }
+            parent = parent.parent;
+          }
+        })
+        if (this.scene) {
+          this.renderer.render(this.scene, this.camera)
+        }
+      }
     },
     // ローディング画面
     async showLoading(task) {

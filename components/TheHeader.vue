@@ -10,6 +10,13 @@
         >
           Menu
         </button>
+        <button
+          @click="toggleFastMode"
+          :class="fastModeClass"
+          class="ml-2 font-pj relative inline-flex h-8 w-28 items-center justify-center rounded-full p-2 text-lg font-bold text-secondary-content transition-all duration-200"
+        >
+          軽量化
+        </button>
       </div>
     </div>
     <div
@@ -174,6 +181,7 @@ export default {
     return {
       windowWidth: 900,
       isActiveMenu: false,
+      isFastMode: false,
     }
   },
   computed: {
@@ -186,6 +194,9 @@ export default {
     isMobile() {
       return this.windowWidth < 1200
     },
+    fastModeClass() {
+      return this.isFastMode ? 'bg-secondary' : 'bg-secondary-dark'
+    },
   },
   mounted() {
     this.windowWidth = window.innerWidth
@@ -195,5 +206,11 @@ export default {
       })
     })
   },
+  methods: {
+    toggleFastMode() {
+      this.isFastMode = !this.isFastMode
+      this.$nuxt.$emit('TOGGLE_FAST_MODE')
+    }
+  }
 }
 </script>
