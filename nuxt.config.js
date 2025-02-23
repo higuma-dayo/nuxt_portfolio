@@ -40,11 +40,7 @@ export default {
 
   components: true,
 
-  buildModules: [
-    '@nuxtjs/dotenv',
-    '@nuxtjs/date-fns',
-    '@nuxtjs/tailwindcss',
-  ],
+  buildModules: ['@nuxtjs/dotenv', '@nuxtjs/date-fns', '@nuxtjs/tailwindcss'],
 
   modules: ['nuxt-microcms-module', 'nuxt-webfontloader'],
 

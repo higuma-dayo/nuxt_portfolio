@@ -3,7 +3,7 @@
     class="relative flex h-screen w-auto flex-col items-center justify-center"
     ref="canvasWrapper"
   >
-    <Loading ref="loading"/>
+    <Loading ref="loading" />
     <canvas id="canvas" class="h-full w-full"></canvas>
   </div>
 </template>
@@ -12,6 +12,9 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
 import Loading from './Loading.vue'
 const isElement = (x) => x instanceof Element
 
@@ -29,6 +32,8 @@ export default {
       animations: [],
       isFast: false,
       gltfUrl: './models/transformer.glb',
+      composer: null,
+      crtPass: null,
       // animationFrameId: null,
       // isScrollControlled: false,
       // mouseX: 0,
@@ -49,9 +54,7 @@ export default {
     this.init()
       .then(() => {
         // 初期化が完了してからレンダリングを開始
-        if (this.renderer && this.scene && this.camera) {
-          this.renderer.render(this.scene, this.camera)
-        }
+        this.animate()
 
         // this.startAnimationLoop() // アニメーションループを開始
       })
@@ -63,8 +66,8 @@ export default {
     window.addEventListener('scroll', this.onScroll)
 
     this.$nuxt.$on('TOGGLE_FAST_MODE', (_) => {
-      this.isFast = !this.isFast;
-      this.toggleShowEnvironment();
+      this.isFast = !this.isFast
+      this.toggleShowEnvironment()
     })
 
     // マウス位置の初期値と目標値
@@ -72,10 +75,10 @@ export default {
     // this.currentY = this.camera?.position.y || 0.26;
     // this.targetX = this.currentX;
     // this.targetY = this.currentY;
-    
+
     // 滑らかな動きを実現するためのRAF
     // this.rafId = requestAnimationFrame(this.updateCamera);
-    
+
     // window.addEventListener('mousemove', this.onMouseMove);
 
     // スマホ用
@@ -96,7 +99,7 @@ export default {
     //   cancelAnimationFrame(this.rafId);
     // }
 
-    this.cleanup();
+    this.cleanup()
 
     // window.removeEventListener('mousemove', this.onMouseMove);
 
@@ -122,8 +125,8 @@ export default {
             }
             if (obj.material) {
               if (Array.isArray(obj.material)) {
-                obj.material.forEach(material => {
-                  Object.keys(material).forEach(prop => {
+                obj.material.forEach((material) => {
+                  Object.keys(material).forEach((prop) => {
                     if (material[prop] && material[prop].dispose) {
                       material[prop].dispose()
                     }
@@ -131,7 +134,7 @@ export default {
                   material.dispose()
                 })
               } else {
-                Object.keys(obj.material).forEach(prop => {
+                Object.keys(obj.material).forEach((prop) => {
                   if (obj.material[prop] && obj.material[prop].dispose) {
                     obj.material[prop].dispose()
                   }
@@ -165,7 +168,7 @@ export default {
     //   // マウス位置を-1から1の範囲に正規化
     //   this.mouseX = (event.clientX / window.innerWidth) * 2 - 1;
     //   this.mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-      
+
     //   // 目標位置を設定
     //   this.targetX = 1.95 + this.mouseX * 0.25;
     //   this.targetY = 0.26 + this.mouseY * 0.24;
@@ -177,21 +180,21 @@ export default {
     //     const easing = 0.08;
     //     this.currentX += (this.targetX - this.currentX) * easing;
     //     this.currentY += (this.targetY - this.currentY) * easing;
-        
+
     //     // 範囲制限
     //     this.currentX = Math.min(Math.max(this.currentX, 1.7), 2.2);
     //     this.currentY = Math.min(Math.max(this.currentY, 0.02), 0.5);
-        
+
     //     // カメラ位置を更新
     //     this.camera.position.x = this.currentX;
     //     this.camera.position.y = this.currentY;
-        
+
     //     // レンダリング
     //     if (this.renderer && this.scene) {
     //       this.renderer.render(this.scene, this.camera);
     //     }
     //   }
-      
+
     //   // 次のフレームを要求
     //   this.rafId = requestAnimationFrame(this.updateCamera);
     // },
@@ -278,12 +281,12 @@ export default {
       }
 
       const width = this.isTablet()
-      ? canvasWrapper.clientWidth
-      : canvasWrapper.clientWidth * 2
+        ? canvasWrapper.clientWidth
+        : canvasWrapper.clientWidth * 2
 
-    const height = this.isTablet()
-      ? canvasWrapper.clientHeight
-      : canvasWrapper.clientHeight * 2
+      const height = this.isTablet()
+        ? canvasWrapper.clientHeight
+        : canvasWrapper.clientHeight * 2
 
       // 初期設定
       this.scene = new THREE.Scene()
@@ -302,18 +305,19 @@ export default {
       })
       this.renderer.setPixelRatio(window.devicePixelRatio)
       this.renderer.setSize(width, height)
+      this.renderer.setClearColor(0x00c77f, 1) // 背景をsecondary-darkに設定
 
       // Blenderに近い見え方にする為の設定
       this.renderer.outputColorSpace = THREE.SRGBColorSpace
       this.renderer.toneMapping = THREE.ACESFilmicToneMapping
-      this.renderer.toneMappingExposure = Math.pow(2, -3)
+      this.renderer.toneMappingExposure = Math.pow(2, -1)
       this.renderer.shadowMap.enabled = true
 
       // 照明設定
       this.createLight()
 
       // 霧
-      this.scene.fog = new THREE.Fog( 0xcccccc, 10, 45 );
+      this.scene.fog = new THREE.Fog(0xcccccc, 10, 45)
 
       try {
         // モデルが読み込まれるまでローディング中にする
@@ -326,6 +330,9 @@ export default {
 
       // 初期表示時でも再生位置を更新
       this.onScroll()
+
+      // シェーダー設定
+      this.setupPostProcessing()
     },
     // モデルロード
     async loadGLTF() {
@@ -374,8 +381,10 @@ export default {
               if (loadedCamera instanceof THREE.PerspectiveCamera) {
                 this.camera = loadedCamera
                 this.camera.fov = this.isTablet()
-                ? this.isMobile() ? this.camera.fov * 3 : this.camera.fov * 2 // スマホの場合、画角を広くする
-                : this.camera.fov * 2
+                  ? this.isMobile()
+                    ? this.camera.fov * 3
+                    : this.camera.fov * 2 // スマホの場合、画角を広くする
+                  : this.camera.fov * 2
               }
               // 他のカメラタイプの場合、PerspectiveCameraに変換
               else {
@@ -422,7 +431,7 @@ export default {
           },
           (error) => {
             reject(error)
-          }
+          },
         )
       })
     },
@@ -430,19 +439,19 @@ export default {
       if (this.scene) {
         this.scene.traverse((obj) => {
           // 環境オブジェクトの表示非表示を切り替える
-          const hideKeywords = ['building', 'Street', 'fog', 'road'];
-          let parent = obj;
+          const hideKeywords = ['building', 'Street', 'fog', 'road']
+          let parent = obj
           while (parent) {
-            if (hideKeywords.some(keyword => parent.name?.includes(keyword))) {
-              obj.visible = !this.isFast;
-              break;
+            if (
+              hideKeywords.some((keyword) => parent.name?.includes(keyword))
+            ) {
+              obj.visible = !this.isFast
+              break
             }
-            parent = parent.parent;
+            parent = parent.parent
           }
         })
-        if (this.scene) {
-          this.renderer.render(this.scene, this.camera)
-        }
+        this.animate()
       }
     },
     // ローディング画面
@@ -456,6 +465,106 @@ export default {
         if (loading) loading.finish()
       }
     },
+    // CRTシェーダー設定
+    setupPostProcessing() {
+      if (!this.renderer || !this.scene || !this.camera) return
+
+      // レンダラーの実際のサイズを取得
+      const size = this.renderer.getSize(new THREE.Vector2())
+
+      // EffectComposerのサイズをレンダラーと同じに設定
+      this.composer = new EffectComposer(this.renderer)
+      this.composer.setSize(size.width, size.height)
+
+      const renderPass = new RenderPass(this.scene, this.camera)
+      this.composer.addPass(renderPass)
+
+      const crtVertexShader = `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }`
+
+      const crtFragmentShader = `
+        precision highp float;
+        uniform sampler2D tDiffuse;
+        uniform vec2 resolution;
+        uniform float time;
+        uniform float warp;
+        varying vec2 vUv;
+
+        // エフェクトの強さを調整するパラメータ
+        float scan = 0.75; // スキャンラインの強さ
+        float vignette = 0.5; // 周辺減光の強さ
+
+        void main() {
+          // アスペクト比を考慮したUV座標の計算
+          float aspect = resolution.x / resolution.y;
+          vec2 uv = vUv;
+          
+          // 中心からの距離を計算（アスペクト比を考慮）
+          vec2 dc = abs(0.5 - uv);
+          dc.x *= aspect;
+          dc *= dc;
+
+          // より強い湾曲効果のためのワープ処理
+          vec2 warpedUv = uv;
+          warpedUv.x -= 0.5;
+          warpedUv.x *= aspect;
+          warpedUv.x *= 1.0 + (dc.y * (0.3 * warp)); // warpをuniformから使用
+          warpedUv.x /= aspect;
+          warpedUv.x += 0.5;
+          
+          warpedUv.y -= 0.5;
+          warpedUv.y *= 1.0 + (dc.x * (0.4 * warp)); // warpをuniformから使用
+          warpedUv.y += 0.5;
+
+          // スキャンライン効果の計算（解像度に応じてスケール）
+          float scanline = sin(warpedUv.y * resolution.y * 1.5) * 0.5 * scan;
+          
+          // ビネット（周辺減光）効果の計算
+          float vignetteAmount = length(dc);
+          float vignetteFactor = 1.0 - vignetteAmount * vignette * 2.0;
+
+          vec4 texColor;
+          // 画面の端でのクリッピングを強化
+          if (warpedUv.x < 0.0 || warpedUv.x > 1.0 || warpedUv.y < 0.0 || warpedUv.y > 1.0) {
+              texColor = vec4(0.0, 0.0, 0.0, 1.0);
+          } else {
+              vec4 baseColor = texture2D(tDiffuse, warpedUv);
+              // スキャンラインとビネット効果を適用
+              vec3 finalColor = baseColor.rgb * vignetteFactor;
+              finalColor = mix(finalColor, vec3(0.0), abs(scanline));
+              texColor = vec4(finalColor, 1.0);
+          }
+
+          gl_FragColor = texColor;
+        }`
+
+      this.crtPass = new ShaderPass({
+        uniforms: {
+          tDiffuse: { value: null },
+          time: { value: 0.0 },
+          resolution: { value: new THREE.Vector2(size.width, size.height) },
+          warp: { value: this.isTablet() ? 0.75 : 1.5 }, // 湾曲効果の初期値を設定
+        },
+        vertexShader: crtVertexShader,
+        fragmentShader: crtFragmentShader,
+      })
+
+      this.composer.addPass(this.crtPass)
+    },
+    animate() {
+      if (this.composer) {
+        this.crtPass.material.uniforms.time.value += 0.05
+        this.composer.render()
+      } else {
+        if (this.renderer && this.scene && this.camera) {
+          this.renderer.render(this.scene, this.camera)
+        }
+      }
+    },
     // 照明設定
     createLight() {
       if (!this.scene || !this.isBrowser) return
@@ -465,10 +574,10 @@ export default {
       directionalLight.position.set(0, 60, 0)
 
       // シーン全体を均等に照らすライト
-      const ambientLight = new THREE.AmbientLight(0xffffff, 20)
+      const ambientLight = new THREE.AmbientLight(0xffffff, 10)
 
       // 空と地面から異なる色の光を照らすライト。上方向（空側）と下方向（地面側）に異なる色を設定
-      const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 5)
+      const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 1)
 
       this.scene.add(directionalLight)
       this.scene.add(ambientLight)
@@ -478,26 +587,32 @@ export default {
     onResize() {
       if (!this.renderer || !this.camera || !this.isBrowser) return
 
-      const width = this.isTablet()
-      ? window.innerWidth
-      : window.innerWidth * 2
+      const width = this.isTablet() ? window.innerWidth : window.innerWidth * 2
 
-    const height = this.isTablet()
-      ? window.innerHeight
-      : window.innerHeight * 2
+      const height = this.isTablet()
+        ? window.innerHeight
+        : window.innerHeight * 2
 
       // WebGLRendererが描画するキャンバスのサイズをウィンドウの幅と高さに合わせる
       this.renderer.setSize(width, height)
       // ピクセル比率をデバイスの画面解像度に合わせる
       this.renderer.setPixelRatio(window.devicePixelRatio)
 
+      if (this.composer) {
+        this.composer.setSize(width, height)
+      }
+
+      if (this.crtPass) {
+        // 湾曲値を動的に更新
+        this.crtPass.material.uniforms.warp.value = this.isTablet() ? 0.75 : 1.5
+        this.crtPass.uniforms.resolution.value.set(width, height)
+      }
+
       // カメラのアスペクト比をウィンドウのアスペクト比に合わせる
       this.camera.aspect = width / height
       this.camera.updateProjectionMatrix()
 
-      if (this.scene) {
-        this.renderer.render(this.scene, this.camera)
-      }
+      this.animate()
     },
     // スクロールされたらアニメーションの再生位置を更新
     onScroll() {
@@ -527,32 +642,30 @@ export default {
       //   action.setLoop(THREE.LoopRepeat, Infinity)
       //   action.paused = false;
       // } else {
-        // this.isScrollControlled = true
-        // 通常のスクロール連動再生
-        action.setLoop(THREE.LoopOnce, 0)
-        action.paused = true // アニメーションを停止した状態で再生位置を変更
+      // this.isScrollControlled = true
+      // 通常のスクロール連動再生
+      action.setLoop(THREE.LoopOnce, 0)
+      action.paused = true // アニメーションを停止した状態で再生位置を変更
 
-        // スキップ範囲の処理
-        const skipRanges = [
-          { start: 4.08, end: 4.13 },
-          { start: 4.50, end: 4.55 }
-        ]
+      // スキップ範囲の処理
+      const skipRanges = [
+        { start: 4.08, end: 4.13 },
+        { start: 4.5, end: 4.55 },
+      ]
 
-        for (const range of skipRanges) {
-          if (rawTime >= range.start && rawTime < range.end) {
-            rawTime = range.end
-            break
-          }
+      for (const range of skipRanges) {
+        if (rawTime >= range.start && rawTime < range.end) {
+          rawTime = range.end
+          break
         }
+      }
 
-        action.time = rawTime // 再生時間を設定
-        this.mixer.update(0) // 更新
+      action.time = rawTime // 再生時間を設定
+      this.mixer.update(0) // 更新
       // }
 
       // レンダリング
-      if (this.renderer && this.scene && this.camera) {
-        this.renderer.render(this.scene, this.camera)
-      }
+      this.animate()
     },
   },
 }

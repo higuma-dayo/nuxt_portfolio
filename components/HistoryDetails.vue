@@ -178,7 +178,13 @@
           </div>
           <div class="ml-4">
             <h4 class="text-lg font-medium max-sm:text-sm">URL</h4>
-            <a :href="historyData.url" target="_blank" rel="noopener noreferrer" class="mt-2 max-sm:text-xs">{{ historyData.url }}</a>
+            <a
+              :href="historyData.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-2 max-sm:text-xs"
+              >{{ historyData.url }}</a
+            >
           </div>
         </div>
       </div>

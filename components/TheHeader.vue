@@ -2,7 +2,7 @@
   <header class="fixed z-10">
     <div class="flex w-screen justify-center">
       <div
-        class="group relative mt-5 inline-flex rounded-full border-2 border-solid border-primary bg-background p-1"
+        class="group relative mt-10 inline-flex rounded-full border-2 border-solid border-primary bg-background p-1"
       >
         <button
           @click="isActiveMenu = !isActiveMenu"
@@ -13,7 +13,7 @@
         <button
           @click="toggleFastMode"
           :class="fastModeClass"
-          class="ml-2 font-pj relative inline-flex h-8 w-28 items-center justify-center rounded-full p-2 text-lg font-bold text-secondary-content transition-all duration-200"
+          class="font-pj relative ml-2 inline-flex h-8 w-28 items-center justify-center rounded-full p-2 text-lg font-bold text-secondary-content transition-all duration-200"
         >
           軽量化
         </button>
@@ -210,7 +210,7 @@ export default {
     toggleFastMode() {
       this.isFastMode = !this.isFastMode
       this.$nuxt.$emit('TOGGLE_FAST_MODE')
-    }
-  }
+    },
+  },
 }
 </script>

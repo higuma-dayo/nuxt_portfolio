@@ -199,6 +199,16 @@
     <div id="model-bottom" style="padding-bottom: 100em">
       <section id="bottom" />
     </div>
+
+    <div
+      class="pointer-events-none fixed inset-0 h-full w-full overflow-hidden"
+    >
+      <img
+        class="h-full w-full object-fill"
+        src="/images/crt.png"
+        alt="CrtFrame"
+      />
+    </div>
   </div>
 </template>
 

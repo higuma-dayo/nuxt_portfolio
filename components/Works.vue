@@ -9,7 +9,7 @@
           03 Works
         </h2>
         <div
-          class="relative mt-20 w-full overflow-hidden rounded-full border-4 border-primary text-sm font-bold max-sm:text-[0.6rem]"
+          class="relative mt-20 w-full overflow-hidden rounded-full border-4 border-primary bg-foreground text-sm font-bold max-sm:text-[0.6rem]"
         >
           <div
             class="flex w-[105%] flex-auto -translate-x-[2.5%] transform justify-evenly text-copy"
