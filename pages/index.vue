@@ -7,12 +7,12 @@
     <div id="model-top" style="padding-bottom: 50em">
       <section id="top"></section>
     </div>
-    <div id="model-about" class="lg:grid lg:grid-cols-2">
+    <div id="model-about" class="lg:grid lg:grid-cols-2 2xl:block">
       <div class="lg:col-span-1 lg:col-start-1" style="margin-top: 100em">
         <section id="about">
           <div class="bg-foreground py-2 shadow-2xl lg:rounded-r-2xl">
             <div
-              class="flex -translate-x-2 flex-col rounded-r-2xl border-8 border-solid border-background bg-about bg-no-repeat px-10 py-32 max-sm:pt-0"
+              class="flex -translate-x-2 flex-col rounded-r-2xl border-8 border-solid border-background bg-about bg-no-repeat px-10 py-32 max-sm:pt-0 2xl:px-40 2xl:py-64"
               style="background-size: 100% auto"
             >
               <div class="h-48 w-full py-8 sm:hidden">
@@ -21,20 +21,22 @@
                 ></div>
               </div>
               <h2
-                class="font-rajdhani text-7xl tracking-tight text-copy sm:text-9xl"
+                class="font-rajdhani text-7xl tracking-tight text-copy sm:text-9xl 2xl:text-[18rem]"
               >
                 01 About
               </h2>
               <div
                 class="relative max-sm:flex max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:text-center"
               >
-                <div class="absolute z-0 h-full w-full py-8 max-sm:hidden">
+                <div
+                  class="absolute z-0 h-full w-full py-8 max-sm:hidden 2xl:py-32"
+                >
                   <div
-                    class="h-full w-full -translate-x-[55%] -skew-x-[25deg] rounded-2xl bg-primary"
+                    class="h-full w-full -translate-x-[55%] -skew-x-[25deg] rounded-2xl bg-primary 2xl:-translate-x-[70%]"
                   ></div>
                 </div>
                 <div
-                  class="relative z-10 my-28 grid-cols-2 items-center px-2.5 max-sm:my-20 sm:grid"
+                  class="relative z-10 my-28 grid-cols-2 items-center px-2.5 max-sm:my-20 sm:grid 2xl:my-56 2xl:grid-cols-3 2xl:px-6"
                 >
                   <div
                     class="relative col-span-1 col-start-1 mx-auto max-w-lg sm:-translate-x-1/4"
@@ -53,39 +55,38 @@
                       class="peer/02 sr-only"
                     />
                     <div
-                      class="absolute inset-0 z-20 scale-[67.5%] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] peer-checked/01:relative peer-checked/01:z-50 peer-checked/02:z-40 peer-checked/01:translate-x-0 peer-checked/02:-translate-x-7 peer-checked/02:-translate-y-7 peer-checked/01:scale-100 peer-checked/02:scale-[83.75%] peer-checked/01:[&>label]:pointer-events-none peer-focus-visible/01:[&_image]:ring peer-focus-visible/01:[&_image]:ring-copy"
+                      class="absolute inset-0 z-20 scale-[67.5%] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] peer-checked/01:relative peer-checked/01:z-50 peer-checked/02:z-40 peer-checked/01:translate-x-0 peer-checked/02:-translate-x-7 peer-checked/02:-translate-y-7 peer-checked/01:scale-100 peer-checked/02:scale-[83.75%] 2xl:peer-checked/02:-translate-x-10 2xl:peer-checked/02:-translate-y-10 peer-checked/01:[&>label]:pointer-events-none peer-focus-visible/01:[&_image]:ring peer-focus-visible/01:[&_image]:ring-copy"
                     >
                       <label
                         class="absolute inset-0 cursor-pointer"
                         for="image-01"
                       ></label>
                       <img
-                        class="inset-0 mb-0 mb-4 ml-0 inline-flex !h-32 h-24 !w-32 w-24 rounded-2xl border-4 border-solid border-copy object-cover shadow-2xl"
+                        class="inset-0 mb-0 mb-4 ml-0 inline-flex !h-32 h-24 !w-32 w-24 rounded-2xl border-4 border-solid border-copy object-cover shadow-2xl 2xl:!h-64 2xl:h-48 2xl:!w-64 2xl:w-48"
                         for="image-01"
                         :src="settings.profileImage.url"
                         :alt="'ProfileImage'"
                       />
                     </div>
                     <div
-                      class="absolute inset-0 z-20 scale-[67.5%] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] peer-checked/02:relative peer-checked/01:z-40 peer-checked/02:z-50 peer-checked/01:translate-x-7 peer-checked/01:translate-y-7 peer-checked/02:translate-x-0 peer-checked/01:scale-[83.75%] peer-checked/02:scale-100 peer-checked/02:[&>label]:pointer-events-none peer-focus-visible/02:[&_image]:ring peer-focus-visible/02:[&_image]:ring-copy"
+                      class="absolute inset-0 z-20 scale-[67.5%] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] peer-checked/02:relative peer-checked/01:z-40 peer-checked/02:z-50 peer-checked/01:translate-x-7 peer-checked/01:translate-y-7 peer-checked/02:translate-x-0 peer-checked/01:scale-[83.75%] peer-checked/02:scale-100 2xl:peer-checked/01:translate-x-10 2xl:peer-checked/01:translate-y-10 peer-checked/02:[&>label]:pointer-events-none peer-focus-visible/02:[&_image]:ring peer-focus-visible/02:[&_image]:ring-copy"
                     >
                       <label
                         class="absolute inset-0 cursor-pointer"
                         for="image-02"
                       ></label>
                       <img
-                        class="mb-0 mb-4 ml-0 inline-flex !h-32 h-24 !w-32 w-24 rounded-2xl border-4 border-solid border-copy object-cover shadow-2xl"
+                        class="mb-0 mb-4 ml-0 inline-flex !h-32 h-24 !w-32 w-24 rounded-2xl border-4 border-solid border-copy object-cover shadow-2xl 2xl:!h-64 2xl:h-48 2xl:!w-64 2xl:w-48"
                         :src="settings.subProfileImage.url"
                         :alt="'SubProfileImage'"
                       />
                     </div>
                     <div
-                      class="h-6 w-6 scale-x-[-1] transform cursor-pointer text-copy-light sm:text-primary-content"
+                      class="h-6 w-6 scale-x-[-1] transform cursor-pointer text-copy-light sm:text-primary-content 2xl:-ml-6 2xl:h-12 2xl:w-12"
                     >
                       <svg
+                        class="h-6 w-6 2xl:h-12 2xl:w-12"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
                         viewBox="0 0 122.88 101.8"
                         fill="currentColor"
                         @click="toggleActiveImage"
@@ -97,15 +98,21 @@
                     </div>
                   </div>
                   <div
-                    class="col-span-1 col-start-2 text-justify text-copy-light max-sm:mt-10 max-sm:flex max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:text-center sm:-skew-x-[25deg]"
+                    class="col-span-1 col-start-2 text-justify text-copy-light max-sm:mt-10 max-sm:flex max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:text-center sm:-skew-x-[25deg] 2xl:col-span-2"
                   >
-                    <h1 class="mb-5 mt-2 text-5xl font-bold text-primary">
+                    <h1
+                      class="mb-5 mt-2 text-5xl font-bold text-primary 2xl:mb-[5rem] 2xl:mt-8 2xl:text-[12rem]"
+                    >
                       {{ settings.nickname }}
                     </h1>
-                    <h2>name: {{ settings.nameEnglish }}</h2>
-                    <h2>business name: {{ settings.bizname }}</h2>
-                    <ul class="mt-2 flex flex-row sm:skew-x-[25deg]">
-                      <li class="mr-4">
+                    <h2 class="2xl:mt-8 2xl:text-7xl">
+                      name: {{ settings.nameEnglish }}
+                    </h2>
+                    <h2 class="2xl:mt-8 2xl:text-7xl">
+                      business name: {{ settings.bizname }}
+                    </h2>
+                    <ul class="mt-2 flex flex-row sm:skew-x-[25deg] 2xl:mt-8">
+                      <li class="mr-4 2xl:mr-8">
                         <a
                           href="https://github.com/higuma-dayo"
                           target="_blank"
@@ -113,7 +120,7 @@
                           aria-label="GitHub"
                         >
                           <svg
-                            class="h-6 hover:text-copy-lighter"
+                            class="h-6 hover:text-copy-lighter 2xl:h-[3rem]"
                             fill="currentColor"
                             role="img"
                             viewBox="0 0 24 24"
@@ -134,7 +141,7 @@
                           aria-label="X"
                         >
                           <svg
-                            class="h-6 hover:text-copy-lighter"
+                            class="h-6 hover:text-copy-lighter 2xl:h-[3rem]"
                             fill="currentColor"
                             role="img"
                             viewBox="0 0 24 24"
@@ -152,27 +159,27 @@
                 </div>
               </div>
               <span
-                class="mb-2 pl-2.5 text-left text-lg font-semibold text-copy sm:mt-10"
+                class="mb-2 pl-2.5 text-left text-lg font-semibold text-copy sm:mt-10 2xl:mb-4 2xl:pl-10 2xl:text-7xl"
                 >Main Skills</span
               >
-              <div class="rounded-2xl bg-background p-2.5">
+              <div class="rounded-2xl bg-background p-2.5 2xl:p-5">
                 <li
                   v-for="mainSkill in settings.mainSkills"
                   :key="mainSkill.skill"
-                  class="m-1 inline-block text-left text-copy-light"
+                  class="m-1 inline-block text-left text-copy-light 2xl:m-2 2xl:text-4xl"
                 >
                   <span>{{ mainSkill.skill }}</span>
                 </li>
               </div>
               <span
-                class="mb-2 mt-5 mt-8 pl-2.5 text-left text-lg font-semibold text-copy"
+                class="mb-2 mt-8 pl-2.5 text-left text-lg font-semibold text-copy 2xl:mb-4 2xl:pl-10 2xl:text-7xl"
                 >Sub Skills</span
               >
-              <div class="rounded-2xl bg-background p-2.5">
+              <div class="rounded-2xl bg-background p-2.5 2xl:p-5">
                 <li
                   v-for="subSkill in settings.subSkills"
                   :key="subSkill.skill"
-                  class="m-1 inline-block text-left text-copy-light"
+                  class="m-1 inline-block text-left text-copy-light 2xl:m-2 2xl:text-4xl"
                 >
                   <span>{{ subSkill.skill }}</span>
                 </li>
@@ -182,21 +189,21 @@
         </section>
       </div>
     </div>
-    <div id="model-history" class="lg:grid lg:grid-cols-2">
+    <div id="model-history" class="lg:grid lg:grid-cols-2 2xl:block">
       <div class="lg:col-span-1 lg:col-start-2" style="margin-top: 150em">
         <section id="history">
           <History />
         </section>
       </div>
     </div>
-    <div id="model-works" class="lg:grid lg:grid-cols-2">
+    <div id="model-works" class="lg:grid lg:grid-cols-2 2xl:block">
       <div class="lg:col-span-1 lg:col-start-1" style="margin-top: 150em">
         <section id="works">
           <Works />
         </section>
       </div>
     </div>
-    <div id="model-bottom" style="padding-bottom: 100em">
+    <div id="model-bottom" style="padding-bottom: 100vh">
       <section id="bottom" />
     </div>
 
@@ -228,12 +235,13 @@ export default {
       splitProgress: 0,
       currentSection: null,
       ishigherLg: false,
+      ishigher2xl: false,
       activeImage: 'image-01',
     }
   },
   computed: {
     mainVisualStyle() {
-      if (!this.ishigherLg) return {}
+      if (!this.ishigherLg || this.ishigher2xl) return {}
       switch (this.currentSection) {
         case 'model-about':
           return {
@@ -264,10 +272,15 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
     window.addEventListener('resize', this.calculateSectionPositions)
 
-    // 画面幅の監視
+    // 画面幅の監視 (lg)
     const mediaQuery = window.matchMedia('(min-width: 1024px)')
     this.ishigherLg = mediaQuery.matches
     mediaQuery.addEventListener('change', this.handleMediaChange)
+
+    // 画面幅の監視 (2xl)
+    const mediaQuery2xl = window.matchMedia('(min-width: 1536px)')
+    this.ishigher2xl = mediaQuery2xl.matches
+    mediaQuery2xl.addEventListener('change', this.handleMediaChange2xl)
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll)
@@ -275,6 +288,9 @@ export default {
 
     const mediaQuery = window.matchMedia('(min-width: 1024px)')
     mediaQuery.removeEventListener('change', this.handleMediaChange)
+
+    const mediaQuery2xl = window.matchMedia('(min-width: 1536px)')
+    mediaQuery2xl.removeEventListener('change', this.handleMediaChange2xl)
   },
   methods: {
     toggleActiveImage() {
@@ -288,6 +304,9 @@ export default {
     },
     handleMediaChange(event) {
       this.ishigherLg = event.matches
+    },
+    handleMediaChange2xl(event) {
+      this.ishigher2xl = event.matches
     },
     calculateSectionPositions() {
       const sections = [

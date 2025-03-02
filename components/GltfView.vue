@@ -115,6 +115,9 @@ export default {
     isTablet() {
       return window.innerWidth <= 1023
     },
+    isLargeDisplay() {
+      return window.innerWidth >= 1920
+    },
     cleanup() {
       // シーンのクリーンアップ
       if (this.scene) {
@@ -280,13 +283,15 @@ export default {
         throw new Error('Canvas wrapper not found')
       }
 
-      const width = this.isTablet()
-        ? canvasWrapper.clientWidth
-        : canvasWrapper.clientWidth * 2
+      const width =
+        this.isTablet() || this.isLargeDisplay()
+          ? canvasWrapper.clientWidth
+          : canvasWrapper.clientWidth * 1.5
 
-      const height = this.isTablet()
-        ? canvasWrapper.clientHeight
-        : canvasWrapper.clientHeight * 2
+      const height =
+        this.isTablet() || this.isLargeDisplay()
+          ? canvasWrapper.clientHeight
+          : canvasWrapper.clientHeight * 1.5
 
       // 初期設定
       this.scene = new THREE.Scene()
@@ -303,7 +308,7 @@ export default {
         canvas,
         alpha: true,
       })
-      this.renderer.setPixelRatio(window.devicePixelRatio)
+      this.renderer.setPixelRatio(1)
       this.renderer.setSize(width, height)
       this.renderer.setClearColor(0x00c77f, 1) // 背景をsecondary-darkに設定
 
@@ -363,11 +368,6 @@ export default {
             model.traverse((obj) => {
               if (obj.type === 'Mesh') {
                 obj.receiveShadow = true
-
-                // 不要な計算を避ける為、影を落とさない'Floor'(Blenderでのオブジェクト名)は除外する
-                if (obj.name !== 'Floor') {
-                  obj.castShadow = true
-                }
               } else if (obj.type === 'DirectionalLight') {
                 obj.castShadow = true
               }
@@ -377,30 +377,22 @@ export default {
             if (gltf.cameras.length > 0) {
               const loadedCamera = gltf.cameras[0]
 
-              // PerspectiveCameraの場合
-              if (loadedCamera instanceof THREE.PerspectiveCamera) {
-                this.camera = loadedCamera
-                this.camera.fov = this.isTablet()
-                  ? this.isMobile()
-                    ? this.camera.fov * 3
-                    : this.camera.fov * 2 // スマホの場合、画角を広くする
-                  : this.camera.fov * 2
-              }
-              // 他のカメラタイプの場合、PerspectiveCameraに変換
-              else {
-                this.camera = new THREE.PerspectiveCamera(
-                  75, // fov
-                  window.innerWidth / window.innerHeight,
-                  0.1, // near
-                  1000, // far
-                )
-                // 基本的なプロパティをコピー
-                this.camera.position.copy(loadedCamera.position)
-                this.camera.rotation.copy(loadedCamera.rotation)
-              }
+              this.camera = loadedCamera
+              this.camera.fov = this.isTablet()
+                ? this.isMobile()
+                  ? this.camera.fov * 3 // スマホの場合、画角を広くする
+                  : this.camera.fov * 1.5
+                : this.isLargeDisplay()
+                  ? this.camera.fov * 1
+                  : this.camera.fov * 1.5
 
               // カメラのアスペクト比をウィンドウのアスペクト比に合わせる
-              this.camera.aspect = window.innerWidth / window.innerHeight
+              const { canvasWrapper } = this.$refs
+              if (!isElement(canvasWrapper)) {
+                throw new Error('Canvas wrapper not found')
+              }
+              this.camera.aspect =
+                canvasWrapper.clientWidth / canvasWrapper.clientHeight
               this.camera.updateProjectionMatrix()
             }
 
@@ -547,7 +539,9 @@ export default {
           tDiffuse: { value: null },
           time: { value: 0.0 },
           resolution: { value: new THREE.Vector2(size.width, size.height) },
-          warp: { value: this.isTablet() ? 0.75 : 1.5 }, // 湾曲効果の初期値を設定
+          warp: {
+            value: this.isTablet() ? 1 : this.isLargeDisplay() ? 0.3 : 1.5,
+          }, // 湾曲効果の初期値を設定
         },
         vertexShader: crtVertexShader,
         fragmentShader: crtFragmentShader,
@@ -587,16 +581,24 @@ export default {
     onResize() {
       if (!this.renderer || !this.camera || !this.isBrowser) return
 
-      const width = this.isTablet() ? window.innerWidth : window.innerWidth * 2
+      const { canvasWrapper } = this.$refs
+      if (!isElement(canvasWrapper)) {
+        throw new Error('Canvas wrapper not found')
+      }
+      const width =
+        this.isTablet() || this.isLargeDisplay()
+          ? canvasWrapper.clientWidth
+          : canvasWrapper.clientWidth * 1.5
 
-      const height = this.isTablet()
-        ? window.innerHeight
-        : window.innerHeight * 2
+      const height =
+        this.isTablet() || this.isLargeDisplay()
+          ? canvasWrapper.clientHeight
+          : canvasWrapper.clientHeight * 1.5
 
       // WebGLRendererが描画するキャンバスのサイズをウィンドウの幅と高さに合わせる
       this.renderer.setSize(width, height)
       // ピクセル比率をデバイスの画面解像度に合わせる
-      this.renderer.setPixelRatio(window.devicePixelRatio)
+      this.renderer.setPixelRatio(1)
 
       if (this.composer) {
         this.composer.setSize(width, height)
@@ -604,7 +606,11 @@ export default {
 
       if (this.crtPass) {
         // 湾曲値を動的に更新
-        this.crtPass.material.uniforms.warp.value = this.isTablet() ? 0.75 : 1.5
+        this.crtPass.material.uniforms.warp.value = this.isTablet()
+          ? 1
+          : this.isLargeDisplay()
+            ? 0.3
+            : 1.5
         this.crtPass.uniforms.resolution.value.set(width, height)
       }
 

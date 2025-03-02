@@ -2,18 +2,18 @@
   <header class="fixed z-10">
     <div class="flex w-screen justify-center">
       <div
-        class="group relative mt-10 inline-flex rounded-full border-2 border-solid border-primary bg-background p-1"
+        class="group relative mt-10 inline-flex rounded-full border-2 border-solid border-primary bg-background p-1 2xl:mt-20 2xl:p-2"
       >
         <button
           @click="isActiveMenu = !isActiveMenu"
-          class="font-pj relative inline-flex h-8 w-28 items-center justify-center rounded-full bg-primary p-2 text-lg font-bold text-primary-content transition-all duration-200"
+          class="font-pj relative inline-flex h-8 w-28 items-center justify-center rounded-full bg-primary p-2 text-lg font-bold text-primary-content transition-all duration-200 2xl:h-16 2xl:w-56 2xl:p-4 2xl:text-4xl"
         >
           Menu
         </button>
         <button
           @click="toggleFastMode"
           :class="fastModeClass"
-          class="font-pj relative ml-2 inline-flex h-8 w-28 items-center justify-center rounded-full p-2 text-lg font-bold text-secondary-content transition-all duration-200"
+          class="font-pj relative ml-2 inline-flex h-8 w-28 items-center justify-center rounded-full p-2 text-lg font-bold text-secondary-content transition-all duration-200 2xl:ml-4 2xl:h-16 2xl:w-56 2xl:p-4 2xl:text-4xl"
         >
           軽量化
         </button>
@@ -21,10 +21,10 @@
     </div>
     <div
       v-show="isActiveMenu"
-      class="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 rounded-2xl border-2 border-solid border-primary bg-background p-1 text-background"
+      class="absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 rounded-2xl border-2 border-solid border-primary bg-background p-1 text-background 2xl:mt-10"
     >
       <div
-        class="w-screen max-w-sm flex-auto overflow-hidden rounded-xl bg-primary text-sm"
+        class="w-screen max-w-sm flex-auto overflow-hidden rounded-xl bg-primary text-sm 2xl:max-w-3xl 2xl:text-4xl"
       >
         <div class="grid grid-cols-2 gap-2 p-4">
           <nuxt-link
@@ -34,14 +34,14 @@
             style="width: 100%; padding: 0"
           >
             <div
-              class="group relative flex items-center gap-x-6 rounded-lg p-2 hover:bg-background hover:bg-opacity-70"
+              class="group relative flex items-center gap-x-6 rounded-lg p-2 hover:bg-background hover:bg-opacity-70 2xl:gap-x-12 2xl:p-4"
               @click="isActiveMenu = !isActiveMenu"
             >
               <div
-                class="flex size-11 flex-none items-center justify-center rounded-lg bg-background text-primary group-hover:bg-copy group-hover:text-[#525c21]"
+                class="flex size-11 flex-none items-center justify-center rounded-lg bg-background text-primary group-hover:bg-copy group-hover:text-[#525c21] 2xl:size-[5.5rem]"
               >
                 <svg
-                  class="size-6"
+                  class="size-6 2xl:size-12"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
@@ -70,14 +70,14 @@
             style="width: 100%; padding: 0"
           >
             <div
-              class="group relative flex items-center gap-x-6 rounded-lg p-2 hover:bg-background hover:bg-opacity-70"
+              class="group relative flex items-center gap-x-6 rounded-lg p-2 hover:bg-background hover:bg-opacity-70 2xl:gap-x-12 2xl:p-4"
               @click="isActiveMenu = !isActiveMenu"
             >
               <div
-                class="flex size-11 flex-none items-center justify-center rounded-lg bg-background text-primary group-hover:bg-copy group-hover:text-[#525c21]"
+                class="flex size-11 flex-none items-center justify-center rounded-lg bg-background text-primary group-hover:bg-copy group-hover:text-[#525c21] 2xl:size-[5.5rem]"
               >
                 <svg
-                  class="size-6"
+                  class="size-6 2xl:size-12"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
@@ -104,14 +104,14 @@
             style="width: 100%; padding: 0"
           >
             <div
-              class="group relative flex items-center gap-x-6 rounded-lg p-2 hover:bg-background hover:bg-opacity-70"
+              class="group relative flex items-center gap-x-6 rounded-lg p-2 hover:bg-background hover:bg-opacity-70 2xl:gap-x-12 2xl:p-4"
               @click="isActiveMenu = !isActiveMenu"
             >
               <div
-                class="flex size-11 flex-none items-center justify-center rounded-lg bg-background text-primary group-hover:bg-copy group-hover:text-[#525c21]"
+                class="flex size-11 flex-none items-center justify-center rounded-lg bg-background text-primary group-hover:bg-copy group-hover:text-[#525c21] 2xl:size-[5.5rem]"
               >
                 <svg
-                  class="size-6"
+                  class="size-6 2xl:size-12"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
@@ -140,14 +140,14 @@
             style="width: 100%; padding: 0"
           >
             <div
-              class="group relative flex items-center gap-x-6 rounded-lg p-2 hover:bg-background hover:bg-opacity-70"
+              class="group relative flex items-center gap-x-6 rounded-lg p-2 hover:bg-background hover:bg-opacity-70 2xl:gap-x-12 2xl:p-4"
               @click="isActiveMenu = !isActiveMenu"
             >
               <div
-                class="flex size-11 flex-none items-center justify-center rounded-lg bg-background text-primary group-hover:bg-copy group-hover:text-[#525c21]"
+                class="flex size-11 flex-none items-center justify-center rounded-lg bg-background text-primary group-hover:bg-copy group-hover:text-[#525c21] 2xl:size-[5.5rem]"
               >
                 <svg
-                  class="size-6"
+                  class="size-6 2xl:size-12"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke-width="1.5"

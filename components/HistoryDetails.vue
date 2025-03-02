@@ -1,21 +1,23 @@
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 z-[1000] flex items-start justify-center overflow-y-auto overscroll-contain bg-background bg-opacity-70 text-copy"
+    class="fixed inset-0 z-[1000] flex items-start justify-center overflow-y-auto overscroll-contain bg-background bg-opacity-70 p-8 text-copy 2xl:p-32"
     @click.self="closeModal"
   >
-    <div class="relative m-8 rounded-2xl bg-foreground" @wheel.stop>
+    <div class="relative h-auto w-screen rounded-2xl bg-foreground" @wheel.stop>
       <button
-        class="absolute right-2.5 top-2.5 z-[1001] cursor-pointer border-none px-2.5 py-1.5 text-2xl"
+        class="absolute right-2.5 top-2.5 z-[1001] cursor-pointer border-none px-2.5 py-1.5 text-2xl 2xl:right-5 2xl:top-5 2xl:px-5 2xl:py-3 2xl:text-4xl"
         @click="closeModal"
       >
         &times;
       </button>
 
-      <div class="rounded-2xl bg-border px-12 py-16">
-        <h2 class="text-base font-bold sm:text-3xl">{{ historyData.title }}</h2>
-        <div class="mt-2 flex flex-row">
-          <span class="whitespace-nowrap text-sm">
+      <div class="rounded-2xl bg-border px-12 py-16 2xl:px-24 2xl:py-32">
+        <h2 class="text-base font-bold sm:text-3xl 2xl:text-7xl">
+          {{ historyData.title }}
+        </h2>
+        <div class="mt-2 flex flex-row 2xl:mt-4">
+          <span class="whitespace-nowrap text-sm 2xl:text-3xl">
             <time
               :datetime="historyData.start"
               v-text="
@@ -24,26 +26,34 @@
             >
             </time>
           </span>
-          <span class="mx-2 whitespace-nowrap text-sm">~</span>
-          <span v-if="historyData.end" class="whitespace-nowrap text-sm">
+          <span class="mx-2 whitespace-nowrap text-sm 2xl:text-3xl">~</span>
+          <span
+            v-if="historyData.end"
+            class="whitespace-nowrap text-sm 2xl:text-3xl"
+          >
             <time
               :datetime="historyData.end"
               v-text="$dateFns.format(new Date(historyData.end), 'yyyy.MM.dd')"
             >
             </time>
           </span>
-          <span v-else class="whitespace-nowrap text-sm">現在</span>
+          <span v-else class="whitespace-nowrap text-sm 2xl:text-3xl"
+            >現在</span
+          >
         </div>
       </div>
 
-      <div class="space-y-12 py-16 pl-8 pr-12 max-sm:pl-1 max-sm:pr-3">
+      <div
+        class="space-y-12 py-16 pl-8 pr-12 max-sm:pl-1 max-sm:pr-3 2xl:space-y-24 2xl:py-32 2xl:pl-16 2xl:pr-24"
+      >
         <div class="flex">
           <div class="flex-shrink-0">
-            <div class="flex h-12 w-12 items-center justify-center rounded-md">
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-md 2xl:h-24 2xl:w-24"
+            >
               <svg
+                class="h-6 w-6 2xl:h-12 2xl:w-12"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -57,13 +67,15 @@
               </svg>
             </div>
           </div>
-          <div class="ml-4">
-            <h4 class="text-lg font-medium max-sm:text-sm">作業内容</h4>
-            <div class="mt-2">
+          <div class="ml-4 2xl:ml-8">
+            <h4 class="text-lg font-medium max-sm:text-sm 2xl:text-4xl">
+              作業内容
+            </h4>
+            <div class="mt-2 2xl:mt-4">
               <li
                 v-for="work in historyData.works"
                 :key="work"
-                class="my-1 mr-2 inline-block -skew-x-[25deg] rounded-md bg-primary px-3 py-1 text-left text-sm text-foreground shadow-sm max-sm:text-xs"
+                class="my-1 mr-2 inline-block -skew-x-[25deg] rounded-md bg-primary px-3 py-1 text-left text-sm text-foreground shadow-sm max-sm:text-xs 2xl:text-2xl"
               >
                 <div class="skew-x-[25deg] max-sm:text-xs">
                   <span>{{ work }}</span>
@@ -74,11 +86,12 @@
         </div>
         <div class="flex">
           <div class="flex-shrink-0">
-            <div class="flex h-12 w-12 items-center justify-center rounded-md">
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-md 2xl:h-24 2xl:w-24"
+            >
               <svg
+                class="h-6 w-6 2xl:h-12 2xl:w-12"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -90,21 +103,26 @@
               </svg>
             </div>
           </div>
-          <div class="ml-4">
-            <h4 class="text-lg font-medium max-sm:text-sm">業務内容</h4>
+          <div class="ml-4 2xl:ml-8">
+            <h4
+              class="mb-2 text-lg font-medium max-sm:text-sm 2xl:mb-4 2xl:text-4xl"
+            >
+              業務内容
+            </h4>
             <span
-              class="mt-2 whitespace-pre-line max-sm:text-xs"
+              class="whitespace-pre-line max-sm:text-xs 2xl:text-2xl"
               v-html="historyData.description"
             ></span>
           </div>
         </div>
         <div v-if="historyData.remarks" class="flex">
           <div class="flex-shrink-0">
-            <div class="flex h-12 w-12 items-center justify-center rounded-md">
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-md 2xl:h-24 2xl:w-24"
+            >
               <svg
+                class="h-6 w-6 2xl:h-12 2xl:w-12"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -118,21 +136,26 @@
               </svg>
             </div>
           </div>
-          <div class="ml-4">
-            <h4 class="text-lg font-medium max-sm:text-sm">備考</h4>
+          <div class="ml-4 2xl:ml-8">
+            <h4
+              class="mb-2 text-lg font-medium max-sm:text-sm 2xl:mb-4 2xl:text-4xl"
+            >
+              備考
+            </h4>
             <span
-              class="mt-2 whitespace-pre-line max-sm:text-xs"
+              class="whitespace-pre-line max-sm:text-xs 2xl:text-2xl"
               v-html="historyData.remarks"
             ></span>
           </div>
         </div>
         <div v-if="historyData.tools" class="flex">
           <div class="flex-shrink-0">
-            <div class="flex h-12 w-12 items-center justify-center rounded-md">
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-md 2xl:h-24 2xl:w-24"
+            >
               <svg
+                class="h-6 w-6 2xl:h-12 2xl:w-12"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -146,23 +169,26 @@
               </svg>
             </div>
           </div>
-          <div class="ml-4">
-            <h4 class="text-lg font-medium max-sm:text-sm">
+          <div class="ml-4 2xl:ml-8">
+            <h4
+              class="mb-2 text-lg font-medium max-sm:text-sm 2xl:mb-4 2xl:text-4xl"
+            >
               使用言語/ツール等
             </h4>
             <span
-              class="mt-2 whitespace-pre-line max-sm:text-xs"
+              class="whitespace-pre-line max-sm:text-xs 2xl:text-2xl"
               v-html="historyData.tools"
             ></span>
           </div>
         </div>
         <div v-if="historyData.url" class="flex">
           <div class="flex-shrink-0">
-            <div class="flex h-12 w-12 items-center justify-center rounded-md">
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-md 2xl:h-24 2xl:w-24"
+            >
               <svg
+                class="h-6 w-6 2xl:h-12 2xl:w-12"
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -176,13 +202,17 @@
               </svg>
             </div>
           </div>
-          <div class="ml-4">
-            <h4 class="text-lg font-medium max-sm:text-sm">URL</h4>
+          <div class="ml-4 2xl:ml-8">
+            <h4
+              class="mb-2 text-lg font-medium max-sm:text-sm 2xl:mb-4 2xl:text-4xl"
+            >
+              URL
+            </h4>
             <a
               :href="historyData.url"
               target="_blank"
               rel="noopener noreferrer"
-              class="mt-2 max-sm:text-xs"
+              class="max-sm:text-xs 2xl:text-2xl"
               >{{ historyData.url }}</a
             >
           </div>
