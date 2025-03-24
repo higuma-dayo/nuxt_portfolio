@@ -165,7 +165,7 @@
                 </svg>
               </div>
               <div>
-                <div class="font-bold group-hover:text-copy">Works</div>
+                <div class="font-bold group-hover:text-copy">Shumi</div>
               </div>
             </div>
           </nuxt-link>

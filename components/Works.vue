@@ -8,7 +8,7 @@
         <h2
           class="font-rajdhani text-7xl tracking-tight text-copy sm:text-9xl 2xl:text-[18rem]"
         >
-          03 Works
+          03 Shumi
         </h2>
         <div
           class="relative mt-20 w-full overflow-hidden rounded-full border-4 border-primary bg-foreground text-sm font-bold max-sm:text-[0.6rem] 2xl:mt-40 2xl:text-3xl"

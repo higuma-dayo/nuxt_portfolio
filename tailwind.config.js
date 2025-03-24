@@ -9,7 +9,7 @@ module.exports = {
       backgroundImage: {
         about: "url('/images/about.png')",
         history: "url('/images/history.png')",
-        works: "url('/images/works.png')",
+        works: "url('/images/shumi.png')",
       },
     },
     colors: {
