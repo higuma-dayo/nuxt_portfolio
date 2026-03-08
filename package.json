@@ -36,5 +36,8 @@
     "eslint-plugin-vue": "^9.27.0",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9"
+  },
+  "resolutions": {
+    "koa": "^2.15.4"
   }
 }
