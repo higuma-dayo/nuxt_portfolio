@@ -37,7 +37,5 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_C0EF0 }}'
           channelId: live
-          projectId: '${{ secrets.FIREBASE_PROJECT_ID }}'
+          projectId: portfolio-c0ef0
           entryPoint: ./
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
