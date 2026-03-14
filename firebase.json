@@ -4,6 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
+    "site": "portfolio-c0ef0",
     "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
