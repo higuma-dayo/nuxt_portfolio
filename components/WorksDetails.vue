@@ -164,6 +164,7 @@ export default {
   watch: {
     isOpen(newVal) {
       if (newVal) {
+        this.$nuxt.$emit('toggle-modal', true)
         // モーダルが開いた時
         document.body.style.overflow = 'hidden'
         document.body.style.height = '100vh'
@@ -176,6 +177,7 @@ export default {
           })
         }
       } else {
+        this.$nuxt.$emit('toggle-modal', false)
         // モーダルが閉じた時
         document.body.style.overflow = ''
         document.body.style.height = ''
