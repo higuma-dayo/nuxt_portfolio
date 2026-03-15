@@ -115,9 +115,6 @@ export default {
     isTablet() {
       return window.innerWidth <= 1023
     },
-    isLargeDisplay() {
-      return window.innerWidth >= 1920
-    },
     cleanup() {
       // シーンのクリーンアップ
       if (this.scene) {
@@ -284,12 +281,12 @@ export default {
       }
 
       const width =
-        this.isTablet() || this.isLargeDisplay()
+        this.isTablet()
           ? canvasWrapper.clientWidth
           : canvasWrapper.clientWidth * 1.5
 
       const height =
-        this.isTablet() || this.isLargeDisplay()
+        this.isTablet()
           ? canvasWrapper.clientHeight
           : canvasWrapper.clientHeight * 1.5
 
@@ -382,9 +379,7 @@ export default {
                 ? this.isMobile()
                   ? this.camera.fov * 3 // スマホの場合、画角を広くする
                   : this.camera.fov * 1.5
-                : this.isLargeDisplay()
-                  ? this.camera.fov * 1
-                  : this.camera.fov * 1.5
+                : this.camera.fov * 1.5
 
               // カメラのアスペクト比をウィンドウのアスペクト比に合わせる
               const { canvasWrapper } = this.$refs
@@ -540,7 +535,7 @@ export default {
           time: { value: 0.0 },
           resolution: { value: new THREE.Vector2(size.width, size.height) },
           warp: {
-            value: this.isTablet() ? 1 : this.isLargeDisplay() ? 0.3 : 1.5,
+            value: this.isTablet() ? 1 : 1.5,
           }, // 湾曲効果の初期値を設定
         },
         vertexShader: crtVertexShader,
@@ -586,12 +581,12 @@ export default {
         throw new Error('Canvas wrapper not found')
       }
       const width =
-        this.isTablet() || this.isLargeDisplay()
+        this.isTablet()
           ? canvasWrapper.clientWidth
           : canvasWrapper.clientWidth * 1.5
 
       const height =
-        this.isTablet() || this.isLargeDisplay()
+        this.isTablet()
           ? canvasWrapper.clientHeight
           : canvasWrapper.clientHeight * 1.5
 
@@ -608,9 +603,7 @@ export default {
         // 湾曲値を動的に更新
         this.crtPass.material.uniforms.warp.value = this.isTablet()
           ? 1
-          : this.isLargeDisplay()
-            ? 0.3
-            : 1.5
+          : 1.5
         this.crtPass.uniforms.resolution.value.set(width, height)
       }
 

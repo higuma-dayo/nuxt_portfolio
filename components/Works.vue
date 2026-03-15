@@ -1,23 +1,23 @@
 <template>
   <div>
-    <div class="bg-foreground py-2 shadow-2xl lg:rounded-r-2xl">
+    <div class="bg-foreground py-2 lg:ml-8 shadow-2xl lg:rounded-r-2xl">
       <div
-        class="flex -translate-x-2 flex-col rounded-r-2xl border-8 border-solid border-background bg-works bg-no-repeat px-10 py-32 2xl:px-40 2xl:py-64"
+        class="flex -translate-x-2 flex-col rounded-r-2xl border-8 border-solid border-background bg-works bg-no-repeat px-10 py-32"
         style="background-size: 100% auto"
       >
         <h2
-          class="font-rajdhani text-7xl tracking-tight text-copy sm:text-9xl 2xl:text-[18rem]"
+          class="font-rajdhani text-7xl tracking-tight text-copy sm:text-9xl"
         >
           03 Shumi
         </h2>
         <div
-          class="relative mt-20 w-full overflow-hidden rounded-full border-4 border-primary bg-foreground text-sm font-bold max-sm:text-[0.6rem] 2xl:mt-40 2xl:text-3xl"
+          class="relative mt-20 w-full overflow-hidden rounded-full border-4 border-primary bg-foreground text-sm font-bold max-sm:text-[0.6rem]"
         >
           <div
             class="flex w-[105%] flex-auto -translate-x-[2.5%] transform justify-evenly text-copy"
           >
             <button
-              class="w-full -skew-x-[25deg] cursor-pointer rounded-md border-none py-1 pl-5 pr-2 2xl:py-2 2xl:pl-10 2xl:pr-4"
+              class="w-full -skew-x-[25deg] cursor-pointer rounded-md border-none py-1 pl-5 pr-2"
               :class="{ 'bg-primary text-foreground': !filterFlg }"
               @click="filterReset"
             >
@@ -26,7 +26,7 @@
               </div>
             </button>
             <button
-              class="w-full -skew-x-[25deg] cursor-pointer rounded-md border-none px-2 py-1 2xl:px-4 2xl:py-2"
+              class="w-full -skew-x-[25deg] cursor-pointer rounded-md border-none px-2 py-1"
               :class="{
                 'bg-primary text-primary-content':
                   filterFlg && filterContentsType === 'code',
@@ -38,7 +38,7 @@
               </div>
             </button>
             <button
-              class="w-full -skew-x-[25deg] cursor-pointer rounded-md border-none px-2 py-1 2xl:px-4 2xl:py-2"
+              class="w-full -skew-x-[25deg] cursor-pointer rounded-md border-none px-2 py-1"
               :class="{
                 'bg-primary text-foreground':
                   filterFlg && filterContentsType === 'model',
@@ -50,7 +50,7 @@
               </div>
             </button>
             <button
-              class="w-full -skew-x-[25deg] cursor-pointer rounded-md border-none px-2 py-1 2xl:px-2 2xl:py-2"
+              class="w-full -skew-x-[25deg] cursor-pointer rounded-md border-none px-2 py-1"
               :class="{
                 'bg-primary text-foreground':
                   filterFlg && filterContentsType === 'photo',
@@ -62,7 +62,7 @@
               </div>
             </button>
             <button
-              class="w-full -skew-x-[25deg] cursor-pointer rounded-md border-none px-2 py-1 max-sm:pr-5 2xl:px-2 2xl:py-2"
+              class="w-full -skew-x-[25deg] cursor-pointer rounded-md border-none px-2 py-1 max-sm:pr-5"
               :class="{
                 'bg-primary text-foreground':
                   filterFlg && filterContentsType === 'article',
@@ -74,7 +74,7 @@
               </div>
             </button>
             <button
-              class="w-full -skew-x-[25deg] cursor-pointer rounded-md border-none py-1 pl-2 pr-5 max-sm:hidden 2xl:py-2 2xl:pl-4 2xl:pr-10"
+              class="w-full -skew-x-[25deg] cursor-pointer rounded-md border-none py-1 pl-2 pr-5 max-sm:hidden"
               :class="{
                 'bg-primary text-foreground':
                   filterFlg && filterContentsType === 'other',
@@ -88,12 +88,12 @@
           </div>
         </div>
         <ol
-          class="mt-10 grid list-none grid-cols-2 gap-6 rounded-xl p-2.5 text-copy-light max-[400px]:grid-cols-1 sm:grid-cols-3 2xl:mt-20 2xl:grid-cols-4 2xl:p-5 min-[3000px]:grid-cols-5"
+          class="mt-10 grid list-none grid-cols-2 gap-6 rounded-xl p-2.5 text-copy-light max-[400px]:grid-cols-1 sm:grid-cols-3 min-[3000px]:grid-cols-5"
         >
           <li v-for="work in filteredWorks" :key="work.id" class="w-full">
             <a
               href="#"
-              class="relative block h-52 rounded-xl bg-border 2xl:h-[26rem]"
+              class="relative block h-52 rounded-xl bg-border"
               @click.prevent="openWorkModal(work)"
             >
               <div class="rounded-xl bg-secondary">
@@ -103,11 +103,11 @@
                     :height="work.thumbnail.height"
                     :src="work.thumbnail.url"
                     :alt="work.title"
-                    class="duration-400 inset-0 h-24 w-full object-cover transition-all delay-300 ease-in hover:scale-125 2xl:h-48"
+                    class="duration-400 inset-0 h-24 w-full object-cover transition-all delay-300 ease-in hover:scale-125"
                   />
                 </figure>
                 <p
-                  class="py-1 pl-2 text-xs font-bold text-border 2xl:py-2 2xl:pl-4 2xl:text-2xl"
+                  class="py-1 pl-2 text-xs font-bold text-border"
                 >
                   <time
                     :datetime="work.date"
@@ -115,17 +115,17 @@
                   />
                 </p>
               </div>
-              <div class="h-14 p-2 2xl:h-28 2xl:p-4">
-                <p class="line-clamp-2 text-sm font-bold 2xl:text-3xl">
+              <div class="h-14 p-2">
+                <p class="line-clamp-2 text-sm font-bold">
                   {{ work.title }}
                 </p>
               </div>
-              <div class="flex items-center p-2 2xl:p-4">
-                <span class="ml-auto text-left text-xs font-bold 2xl:text-2xl">
+              <div class="flex items-center p-2">
+                <span class="ml-auto text-left text-xs font-bold">
                   もっと詳しく
                 </span>
                 <svg
-                  class="h-4 w-4 2xl:h-8 2xl:w-8"
+                  class="h-4 w-4"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -143,11 +143,11 @@
             </a>
           </li>
         </ol>
-        <div class="mt-20 text-center 2xl:mt-40">
+        <div class="mt-20 text-center">
           <button
             v-if="hasMoreData"
             v-on:click="loadMore"
-            class="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md border border-solid border-border bg-foreground px-6 font-medium text-copy transition-all duration-100 [box-shadow:5px_5px_rgb(0_199_127)] hover:translate-x-[3px] hover:translate-y-[3px] hover:[box-shadow:0px_0px_rgb(0_199_127)] 2xl:h-24 2xl:px-12 2xl:text-4xl 2xl:[box-shadow:10px_10px_rgb(0_199_127)] 2xl:hover:translate-x-[6px] 2xl:hover:translate-y-[6px]"
+            class="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md border border-solid border-border bg-foreground px-6 font-medium text-copy transition-all duration-100 [box-shadow:5px_5px_rgb(0_199_127)] hover:translate-x-[3px] hover:translate-y-[3px] hover:[box-shadow:0px_0px_rgb(0_199_127)]"
           >
             もっと見る
           </button>

@@ -3,9 +3,6 @@ export default {
 
   head: {
     title: 'Higuma’s portfolio',
-    htmlAttrs: {
-      lang: 'ja',
-    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -25,8 +22,9 @@ export default {
         href: '/favicons/apple-touch-icon-180x180.png',
       },
     ],
-    bodyAttrs: {
-      class: 'bg-background',
+    htmlAttrs: {
+      lang: 'ja',
+      style: 'background-color: black;',
     },
     script: [
       {
