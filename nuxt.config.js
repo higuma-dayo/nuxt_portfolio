@@ -31,7 +31,24 @@ export default {
         src: 'https://cdn.iframe.ly/embed.js',
         async: true,
       },
+      {
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-YL9LGK7C29',
+        async: true,
+      },
+      {
+        hid: 'gtag',
+        innerHTML: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-YL9LGK7C29');
+        `,
+        type: 'text/javascript',
+      },
     ],
+    __dangerouslyDisableSanitizersByTagID: {
+      gtag: ['innerHTML'],
+    },
   },
 
   plugins: ['~plugins/vue-scrollto'],
